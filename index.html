@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="An open-source navigation stack supporting both LiDAR and monocular 3D perception for autonomous off-road navigation, evaluated in simulation and real-world environments.">
+  <meta name="keywords" content="off-road navigation, autonomous robot, monocular depth estimation, LiDAR, ROS, Isaac Sim">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>An Open-Source LiDAR and Monocular Off-Road Autonomous Navigation Stack</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+</nav>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">An Open-Source LiDAR and Monocular Off-Road Autonomous Navigation Stack</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">Rémi Marsal<sup>*,1</sup>,</span>
+            <span class="author-block">Quentin Picard<sup>*,2</sup>,</span>
+            <span class="author-block">Adrien Poiré<sup>1</sup>,</span>
+            <span class="author-block">Sébastien Kerbourc'h<sup>1</sup>,</span>
+            <span class="author-block">Thibault Toralba<sup>1</sup>,</span>
+            <span class="author-block">Alexandre Chapoutot<sup>1</sup>,</span>
+            <span class="author-block">David Filliat<sup>2</sup></span>
+          </div>
+
+          <div class="is-size-6 publication-authors">
+            <span class="author-block"><sup>*</sup>Equal contribution</span>
+          </div>
+          <div class="is-size-6 publication-authors">
+            <span class="author-block"><sup>1</sup>U2IS, ENSTA, Institut Polytechnique de Paris, Palaiseau, France</span>
+          </div>
+          <div class="is-size-6 publication-authors">
+            <span class="author-block"><sup>2</sup>AMIAD, Pôle Recherche, France</span>
+          </div>
+          <div class="is-size-6 publication-authors">
+            <span class="author-block">All authors are members of LARIAD, a joint AMIAD-ENSTA laboratory</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- arXiv Link -->
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2604.03096"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Code Link -->
+              <span class="link-block">
+                <a href="https://github.com/LARIAD/Offroad-Nav"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Teaser -->
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <div class="columns is-centered is-vcentered">
+        <div class="column">
+          <figure class="image">
+            <img src="./static/images/barakuda_real_photo.png" alt="Barakuda robot in real off-road environment"/>
+          </figure>
+          <p class="has-text-centered" style="margin-top: 0.5rem;"><em>Real environment</em></p>
+        </div>
+        <div class="column">
+          <figure class="image">
+            <img src="./static/images/barakuda_simu.png" alt="Barakuda robot in Isaac Sim"/>
+          </figure>
+          <p class="has-text-centered" style="margin-top: 0.5rem;"><em>Simulation (Isaac Sim)</em></p>
+        </div>
+      </div>
+      <h2 class="subtitle has-text-centered" style="margin-top: 1rem;">
+        We present an open-source off-road navigation stack supporting both <strong>LiDAR</strong>
+        and <strong>monocular</strong> 3D perception — no task-specific training required.
+        Evaluated in photorealistic Isaac Sim environments and real-world unstructured terrain.
+      </h2>
+    </div>
+  </div>
+</section>
+
+
+<!-- Paper video -->
+<section class="section" style="padding-top: 0;">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <!-- <h2 class="title is-3">Video</h2> -->
+        <video controls playsinline width="100%">
+          <source src="./static/videos/fullvideopaper.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+
+    <div class="columns is-centered" style="margin-top: 2rem;">
+      <div class="column has-text-centered">
+        <h3 class="title is-4">Simulation — LiDAR</h3>
+        <video controls playsinline width="100%">
+          <source src="./static/videos/simulation-lidar.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="column has-text-centered">
+        <h3 class="title is-4">Simulation — Monocular</h3>
+        <video controls playsinline width="100%">
+          <source src="./static/videos/simulation-mono.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Off-road autonomous navigation demands reliable 3D perception for robust obstacle detection in challenging unstructured terrain. While LiDAR is accurate, it is costly and power-intensive. Monocular depth estimation using foundation models offers a lightweight alternative, but its integration into outdoor navigation stacks remains underexplored.
+          </p>
+          <p>
+            We present an open-source off-road navigation stack supporting both LiDAR and monocular 3D perception without task-specific training. For the monocular setup, we combine zero-shot depth prediction (Depth Anything V2) with metric depth rescaling using sparse SLAM measurements (VINS-Mono). Two key enhancements improve robustness: edge-masking to reduce obstacle hallucination and temporal smoothing to mitigate the impact of SLAM instability.
+          </p>
+          <p>
+            The resulting point cloud is used to generate a robot-centric 2.5D elevation map for costmap-based planning. Evaluated in photorealistic simulations (Isaac Sim) and real-world unstructured environments, the monocular configuration matches high-resolution LiDAR performance in most scenarios, demonstrating that foundation-model-based monocular depth estimation is a viable LiDAR alternative for robust off-road navigation. By open-sourcing the navigation stack and the simulation environment, we provide a complete pipeline for off-road navigation as well as a reproducible benchmark. Code available at https://github.com/LARIAD/Offroad-Nav.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Pipeline -->
+<section class="section" style="background-color: #f5f5f5;">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Navigation Pipeline</h2>
+        <div class="content has-text-justified">
+          <p>
+            The pipeline takes as input either a <strong>LiDAR point cloud</strong> or
+            <strong>monocular camera images</strong> with a SLAM sparse point cloud, along with
+            robot localization. It outputs velocity commands for the robot.
+            The three core modules are: (1) 3D perception, (2) ground segmentation and elevation
+            mapping via Cloth Simulation Filter (CSF), and (3) costmap-based path planning with
+            an A* global planner and TEB local planner.
+          </p>
+        </div>
+        <figure class="image">
+          <img src="./static/images/pipeline.svg" alt="Navigation pipeline diagram"
+               style="max-width: 100%; margin: auto; mix-blend-mode: multiply;"/>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Simulation environments -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Simulation Environments</h2>
+    <div class="content has-text-justified">
+      <p>
+        We created three photorealistic simulation environments in
+        NVIDIA Isaac Sim,
+        spanning three difficulty levels. All environments are open-sourced as a reproducible
+        benchmark for off-road navigation.
+      </p>
+    </div>
+    <div class="columns is-centered">
+      <div class="column has-text-centered">
+        <figure class="image">
+          <img src="./static/images/env_easy.png" alt="Easy environment"/>
+        </figure>
+        <p><strong>Easy</strong> — flat terrain with red cube obstacles</p>
+      </div>
+      <div class="column has-text-centered">
+        <figure class="image">
+          <img src="./static/images/env_medium.png" alt="Medium environment"/>
+        </figure>
+        <p><strong>Medium</strong> — photorealistic trees and rocks</p>
+      </div>
+      <div class="column has-text-centered">
+        <figure class="image">
+          <img src="./static/images/env_hard.png" alt="Hard environment"/>
+        </figure>
+        <p><strong>Hard</strong> — ground elevation, high grass, and photorealistic obstacles</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Results: Simulation -->
+<section class="section" style="background-color: #f5f5f5;">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Results — Simulation</h2>
+    <div class="content has-text-justified">
+      <p>
+        Top-view trajectory maps for the three simulated environments. Each column shows one
+        environment (easy, medium, hard). <strong>Top row</strong>: LiDAR (sim-tuned).
+        <strong>Middle row</strong>: LiDAR (real-params).
+        <strong>Bottom row</strong>: Mono-VINS (STCD only). Goal points at 10m (orange), 20m
+        (blue), and 30m (green) are marked with stars. Dashed lines are remotely-operated
+        reference trajectories; solid lines are autonomous runs.
+      </p>
+    </div>
+
+    <p class="has-text-centered"><strong>LiDAR (sim-tuned)</strong></p>
+    <div class="columns is-centered" style="margin-bottom: 0.5rem;">
+      <div class="column has-text-centered">
+        <figure class="image">
+          <img src="./static/images/simu_lidar_simtuned_easy.png" alt="LiDAR sim-tuned easy simulation"/>
+        </figure>
+        <p>Easy</p>
+      </div>
+      <div class="column has-text-centered">
+        <figure class="image">
+          <img src="./static/images/simu_lidar_simtuned_medium.png" alt="LiDAR sim-tuned medium simulation"/>
+        </figure>
+        <p>Medium</p>
+      </div>
+      <div class="column has-text-centered">
+        <figure class="image">
+          <img src="./static/images/simu_lidar_simtuned_hard.png" alt="LiDAR sim-tuned hard simulation"/>
+        </figure>
+        <p>Hard</p>
+      </div>
+    </div>
+
+    <p class="has-text-centered"><strong>LiDAR (real-params)</strong></p>
+    <div class="columns is-centered" style="margin-bottom: 0.5rem;">
+      <div class="column has-text-centered">
+        <figure class="image">
+          <img src="./static/images/simu_lidar_easy.png" alt="LiDAR easy simulation"/>
+        </figure>
+        <p>Easy</p>
+      </div>
+      <div class="column has-text-centered">
+        <figure class="image">
+          <img src="./static/images/simu_lidar_medium.png" alt="LiDAR medium simulation"/>
+        </figure>
+        <p>Medium</p>
+      </div>
+      <div class="column has-text-centered">
+        <figure class="image">
+          <img src="./static/images/simu_lidar_hard.png" alt="LiDAR hard simulation"/>
+        </figure>
+        <p>Hard</p>
+      </div>
+    </div>
+
+    <p class="has-text-centered"><strong>Mono-VINS (STCD only)</strong></p>
+    <div class="columns is-centered">
+      <div class="column has-text-centered">
+        <figure class="image">
+          <img src="./static/images/simu_mono_easy.png" alt="Mono easy simulation"/>
+        </figure>
+        <p>Easy</p>
+      </div>
+      <div class="column has-text-centered">
+        <figure class="image">
+          <img src="./static/images/simu_mono_medium.png" alt="Mono medium simulation"/>
+        </figure>
+        <p>Medium</p>
+      </div>
+      <div class="column has-text-centered">
+        <figure class="image">
+          <img src="./static/images/simu_mono_hard.png" alt="Mono hard simulation"/>
+        </figure>
+        <p>Hard</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Results: Real world -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Results — Real World</h2>
+    <div class="content has-text-justified">
+      <p>
+        Top-view trajectory maps for real-world experiments with the Barakuda wheeled ground
+        robot. <strong>Top row</strong>: LiDAR. <strong>Bottom row</strong>: Mono-VINS. Columns
+        correspond to easy, medium, and hard scenarios. Obstacles are shown in white.
+      </p>
+    </div>
+
+    <p class="has-text-centered"><strong>LiDAR (real-params)</strong></p>
+    <div class="columns is-centered" style="margin-bottom: 0.5rem;">
+      <div class="column has-text-centered">
+        <figure class="image">
+          <img src="./static/images/real_lidar_easy.png" alt="LiDAR real easy"/>
+        </figure>
+        <p>Easy</p>
+      </div>
+      <div class="column has-text-centered">
+        <figure class="image">
+          <img src="./static/images/real_lidar_medium.png" alt="LiDAR real medium"/>
+        </figure>
+        <p>Medium</p>
+      </div>
+      <div class="column has-text-centered">
+        <figure class="image">
+          <img src="./static/images/real_lidar_hard.png" alt="LiDAR real hard"/>
+        </figure>
+        <p>Hard</p>
+      </div>
+    </div>
+
+    <p class="has-text-centered"><strong>Mono-VINS</strong></p>
+    <div class="columns is-centered">
+      <div class="column has-text-centered">
+        <figure class="image">
+          <img src="./static/images/real_mono_easy.png" alt="Mono real easy"/>
+        </figure>
+        <p>Easy</p>
+      </div>
+      <div class="column has-text-centered">
+        <figure class="image">
+          <img src="./static/images/real_mono_medium.png" alt="Mono real medium"/>
+        </figure>
+        <p>Medium</p>
+      </div>
+      <div class="column has-text-centered">
+        <figure class="image">
+          <img src="./static/images/real_mono_hard.png" alt="Mono real hard"/>
+        </figure>
+        <p>Hard</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- BibTeX -->
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{stacknav2026,
+  title   = {An Open-Source LiDAR and Monocular Off-Road Autonomous Navigation Stack},
+  author  = {Marsal, R{\'e}mi and Picard, Quentin and Poir{\'e}, Adrien and
+             Kerbourc'h, S{\'e}bastien and Toralba, Thibault and
+             Chapoutot, Alexandre and Filliat, David},
+  journal = {arXiv preprint arXiv:2604.03096},
+  year    = {2026}
+}</code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content has-text-centered">
+          <p>
+            This website is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            This Website template is from
+            <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
