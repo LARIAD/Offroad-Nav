@@ -1,0 +1,11 @@
+<launch>
+    <!-- <node pkg="tf" type="static_transform_publisher" name="base_link_to_map" args="0.0 0.0 0.0 0.0 0 0.0  /base_link /map  100"/> -->
+    <!-- <node pkg="tf" type="static_transform_publisher" name="base_link_to_odom" args="0.0 0.0 0.0 0.0 0.0 0.0  /base_link /odom  100"/> -->
+    <!-- <node pkg="tf" type="static_transform_publisher" name="base_link_to_ouster" args="1.026 0.0 0.488 3.142 1.347 3.142  /base_link /os_sensor  100"/> -->
+    <!--include file="$(find barakuda_description)/launch/barakuda_description_taurus.launch" /-->
+    <!-- Elevation mapping node -->
+    <node pkg="elevation_mapping_cupy" type="elevation_mapping_node" name="elevation_mapping" output="screen">
+        <rosparam command="load" file="$(find elevation_mapping_cupy)/config/core/test_core_param.yaml"/>
+        <rosparam command="load" file="$(find elevation_mapping_cupy)/config/core/test_example_setup.yaml"/>
+    </node>
+</launch>

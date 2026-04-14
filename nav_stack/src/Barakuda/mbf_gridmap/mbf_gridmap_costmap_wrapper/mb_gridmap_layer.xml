@@ -1,0 +1,7 @@
+<class_libraries>
+    <library path="lib/libmbf_gridmap_costmap_wrapper">
+        <class type="mbf_gridmap_costmap_wrapper::MoveBaseGridMapLayer" base_class_type="costmap_2d::Layer">
+            <description>ROS-Package that implements a costmap layer come from grid map</description>
+        </class>
+    </library>
+</class_libraries>

@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+
+<launch>    
+    <!-- Ouster lidar node -->
+    <include file="$(find ouster_ros)/launch/driver.launch" >
+        <arg name="sensor_hostname" value="169.254.105.202" />
+        <!--value="169.254.28.57"-->
+        <arg name="viz" value="false" />
+        <arg name="lidar_mode" value="1024x20" />
+        <arg name="timestamp_mode" value="TIME_FROM_ROS_TIME" />
+        <arg name="udp_profile_lidar" value="RNG19_RFL8_SIG16_NIR16_DUAL" />
+    </include>
+
+    <!-- Zed camera node -->
+
+    <!-- <include file="$(find zed_wrapper)/launch/zed2i.launch">
+        <arg name="base_frame"           default="front_struct_front_stick_zed_link" />
+        <arg name="cam_pos_x"           value="0.015" />
+        <arg name="cam_pos_y"           value="0" />
+        <arg name="cam_pos_z"           value="0.01" />
+    </include> -->
+
+
+    <!-- Static TF publisher, waiting for URDF -->
+    <!--<node pkg="tf" type="static_transform_publisher" name="zed_to_ouster" args="0.082 -0.033 0.075 0 1.76278 0  /camera /os_sensor  100"/>-->
+    
+    <!--node pkg="tf" type="static_transform_publisher" name="zed_to_ouster" args="-0.035 0 0.125 0 1.76278 0  /camera /os_sensor  100"/>
+    <node pkg="tf" type="static_transform_publisher" name="zed_optical2" args="0.0 0 0. 1.57 0 0 /camera /optical2  100"/-->
+    <!--node pkg="tf" type="static_transform_publisher" name="zed_cam" args="0.0 0 0. 0 0 0 /camera /zed2i_camera_center  100"/-->
+    
+    <!-- zed_calib node-->
+    <!--<node pkg="tf" type="static_transform_publisher" name="zed_calib_to_ouster" args="0.0495077 -0.117203 0.0929835 -1.5533 3.0892 2.8623  /os_sensor /zed_calib  100"/>-->
+    <!--<node pkg="tf" type="static_transform_publisher" name="zed_optical" args="0.0 0 0. 1.57 0 1.57 /zed_calib /camera   100"/>-->
+
+    <!--node pkg="tf" type="static_transform_publisher" name="zed_optical" args="0.0 0 0. -1.57 0 -1.57  /camera /optical  100"/-->
+
+    <!--<node pkg="tf" type="static_transform_publisher" name="zed_opencvmerde" args="0.0 0 0. 0 1.57 0 /os_sensor /opencvmerde  100"/> -->
+    
+    <!-- 
+    <node pkg="pcl_plane_estimation" name="example" type="example" output="screen" respawn="true" >
+        <param name="cloud_pcd" type="str" value="/ouster/points" />
+    </node> -->
+
+    <!--  -->
+    <include file="$(find pcl_plan_estimation)/launch/detect_plan.launch"/>
+    <!--node pkg="pcl_plan_estimation" name="true_tf_node" type="true_tf_node" output="screen" respawn="true" /-->
+
+    <!-- Elevation mapping node -->
+    <include file="$(find elevation_mapping_cupy)/launch/elevation_mapping_cupy.launch" />
+    
+    <!--  -->
+    <!--include file="$(find convex_plane_decomposition_ros)/launch/test_plane.launch"/-->
+
+    <!-- Lidar point projection on the camera frame -->
+    <node pkg="barakuda_vision" type="barakuda_vision" name="barakuda_vision">
+        <rosparam command="load" file="$(find barakuda_vision)/config/barakuda_vision.yaml" />
+    </node>
+</launch>

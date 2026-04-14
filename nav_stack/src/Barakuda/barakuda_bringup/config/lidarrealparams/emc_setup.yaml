@@ -1,0 +1,72 @@
+#### Plugins ########
+plugin_config_file: '$(rospack find barakuda_bringup)/config/lidarrealparams/emc_plugin_config.yaml'
+
+#### Channel Fusions ########
+pointcloud_channel_fusions:
+  #rgb: 'color'
+  # rgb: 'color'                # 'color' fusion is used for the 'rgb' channel
+  default: 'average' 
+  x: 'x'
+  y: 'y'
+  z: 'z'                # 'color' fusion is used for the 'rgb' channel
+  # obli1: 'csf_segmentation'          # add algorithms that must be execute even if there are no associeted fields in pointcloud
+  obli2: 'csf_base_layer'
+  obli3: 'csf_segmentation_gpu'
+channels_should_add_to_pcl_for_exec_fusion: # add numburs of layers for pointcloud fields that not provide by pointcloud2 msg but define in pointcloud_channel_fusions
+  # obli1: "1"
+  obli2: "1"
+  obli3: "1"
+image_channel_fusions: 
+  rgb: 'color'                # 'color' fusion is used for the 'rgb' channel
+  default: 'exponential'      # 'exponential' fusion is used for channels not listed here
+  feat_.*: 'exponential'      # 'exponential' fusion is also used for any channel starting with 'feat_' Regular expressions can be used for channel names
+
+#### Subscribers ########
+#  pointcloud_sensor_name:
+#    topic_name: '/sensor/pointcloud_semantic'
+#    data_type:  pointcloud  # pointcloud or image
+#
+#  image_sensor_name:
+#    topic_name: '/camera/image_semantic'
+#    data_type:  image  # pointcloud or image
+#    camera_info_topic_name: '/camera/depth/camera_info'
+#    channel_info_topic_name: '/camera/channel_info'
+
+
+subscribers:
+  ouster:
+    topic_name: '/ouster/points'
+    data_type: pointcloud
+#  color_cam: # for color camera
+#    topic_name: '/camera/rgb/image_raw'
+#    camera_info_topic_name: '/camera/depth/camera_info'
+#    data_type: image
+#  semantic_cam: # for semantic images
+#    topic_name: '/front_cam/semantic_image'
+#    camera_info_topic_name: '/front_cam/camera/depth/camera_info_resized'
+#    channel_info_topic_name: '/front_cam/channel_info'
+#    data_type: image
+
+#### Publishers ########
+# topic_name:
+#   layers:               # Choose from 'elevation', 'variance', 'traversability', 'time', 'normal_x', 'normal_y', 'normal_z', 'color', plugin_layer_names
+#   basic_layers:         # basic_layers for valid cell computation (e.g. Rviz): Choose a subset of `layers`.
+#   fps:                  # Publish rate. Use smaller value than `map_acquire_fps`.
+
+publishers:
+  # elevation_map_raw:
+  #   layers: ['csf','csf_new','csf_only','csf_inflated'] #'elevation', 'traversability', 'variance','rgb']  'csf',
+  #   basic_layers: ['csf']
+  #   fps: 20.0
+  elevation_map_raw_gpu:
+    layers: ['csf_gpu','csf_new','csf_only_gpu','csf_inflated'] #'elevation', 'traversability', 'variance','rgb']  'csf',
+    basic_layers: ['csf_gpu']
+    fps: 20.0
+  #elevation_map_recordable:
+  # layers: ['elevation', 'traversability']
+  # basic_layers: ['elevation', 'traversability']
+  # fps: 2.0
+  #elevation_map_filter:
+  #  layers: ['min_filter', 'smooth', 'inpaint', 'elevation']
+  #  basic_layers: ['min_filter']
+  #  fps: 3.0

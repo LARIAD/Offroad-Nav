@@ -1,0 +1,23 @@
+<launch>
+    <arg name="robot_namespace" default="/"/>
+    <arg name="robot_model" default="$(find barakuda_description)/urdf/barakuda.urdf.xacro"/>
+    <arg name="robot_model_config" default="$(find barakuda_description)/config/urdf_example.yaml"/>
+
+    <arg name="respawn_delay" default="5"/>
+    <arg name="joint_state_publisher" default="true"/>
+    <arg name="joint_state_gui" default="false"/>
+
+    <param name="robot_description" command="$(find xacro)/xacro $(arg robot_model)
+                                            robot_namespace:=$(arg robot_namespace)
+                                            robot_model_config:=$(arg robot_model_config)"/>
+
+    <group if="$(arg joint_state_publisher)">
+        <node if="$(arg joint_state_gui)" name="joint_state_publisher" pkg="joint_state_publisher_gui"
+              type="joint_state_publisher_gui"/>
+        <node unless="$(arg joint_state_gui)" name="joint_state_publisher" pkg="joint_state_publisher"
+              type="joint_state_publisher"/>
+    </group>
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="true"
+          respawn_delay="$(arg respawn_delay)"/>
+</launch>
+

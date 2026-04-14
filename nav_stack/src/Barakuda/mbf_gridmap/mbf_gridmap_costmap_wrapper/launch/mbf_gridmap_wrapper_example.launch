@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!--
+Start a goal with
+
+rostopic pub -1 /move_base_flex/move_base/goal mbf_msgs/MoveBaseActionGoal "{header: {frame_id: 'map'}, goal_id: {}, goal: {target_pose: {header: {frame_id: 'map'}, pose: {position: {x: -1.5, y: 5.0, z: -1.0}, orientation: {x: 1.0, y: 0.0, z: 0.0, w: 0.0}}}, controller: 'teb', planner: 'a_star', recovery_behaviors: ''}}"
+-->
+<launch>
+  <env name="ROSCONSOLE_CONFIG_FILE" value="$(find mbf_gridmap_costmap_wrapper)/configs/log.conf"/>
+  <arg name="nav_config" default="$(find mbf_gridmap_costmap_wrapper)/configs/nav_config_example.yaml" />
+  <node name="move_base_flex" pkg="mbf_gridmap_nav" type="mbf_gridmap_nav" output="screen">
+    <rosparam command="load" file="$(arg nav_config)"/>
+  </node>
+</launch>

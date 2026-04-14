@@ -1,0 +1,13 @@
+cloud1_topic: /depth_estimation/cam0/point_cloud
+cloud2_topic: /depth_estimation/cam1/point_cloud
+output_topic: /depth_estimation/point_cloud_merged
+target_frame: base_link
+
+voxel_size: 0.05 # 5cm
+distance_threshold: 0.02 # 2cm
+max_iterations: 100 # 100
+use_coarse_registration: True
+use_point_to_plane: False # True for point-to-plane, False for point-to-point
+enable_downsampling: True # points to voxels -> 1 point per voxel_size cm3
+estimate_normals: False # Skip normal estimation if using point-to-point - need it for fpfh correspondent coarse method
+coarse_method: fpfh # 'fpfh', 'closest_point'

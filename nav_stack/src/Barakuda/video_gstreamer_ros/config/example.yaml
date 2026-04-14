@@ -1,0 +1,70 @@
+streams: # Cannot rename - must leave this as is.
+  my_ros2rtp_cam:
+    type: "ROS2RTP" # type of the stream. Either ROS2RTP, RTSP2ROS or RTSP2RTP.
+    camera_topic: "image_raw" # the image topic to subscribe to
+    enable_stream_topic: "my_beautiful_cam_gst_enable" # the topic to enable or disable the stream
+
+    # The parameters of the gstreamer pipeline
+    # '{gst_pipeline_1}width={image_width}, height={image_height}, framerate={framerate}{gst_pipeline_2} udpsink host="{pcc_host}" port="{pcc_port}"'
+    gst_pipeline_1: "appsrc ! videoconvert ! videoscale ! video/x-raw,"
+    gst_pipeline_2: "/1, format=YUY2 ! videoconvert ! jpegenc ! rtpjpegpay !"
+    framerate: "20"
+
+    # The output dimensions of the images. They don't have to be the same as the input image.
+    # The size of the input image is determined using the camera_topic
+    image_width: "400"
+    image_height: "200"
+
+    # The address and the port of the server to send the image to.
+    # /!\/!\ no other robot or camera can send images to the same port /!\/!\
+    pcc_host: "mirador"
+    pcc_port: "5000"
+
+    debug: true # does nothing
+    low_resources: true # does nothing
+  my_rtsp2ros_cam:
+    type: "RTSP2ROS"
+    # Publication related
+    camera_topic: "image_compressed" # the image topic to publish to
+    camera_info_topic: "image_compressed/info" # the image info topic to publish to
+    frame_id: "gst_camera_frame" # the frame of the camera
+    framerate: 30  # the frequency of the loop publishing to ros
+
+    # The parameters of the gstreamer pipeline
+    # 'rtspsrc location={gst_rtsp_url}{gst_pipeline_1}width={in_width},height={in_height}{gst_pipeline_2}width={out_width},height={out_height}{gst_pipeline_3} ! appsink drop=1'
+    gst_rtsp_url: "rtsp://user:pass@192.168.0.90:554/cam"
+    gst_pipeline_1: " latency=0 ! decodebin max-size-time=30000000000 ! nvvidconv ! video/x-raw,"
+    gst_pipeline_2: ",format=BGRx ! videoconvert ! video/x-raw,format=BGR ! videoconvert ! videoscale ! video/x-raw,"
+
+    # input stream params
+    in_width: "1920"
+    in_height: "1080"
+
+    # output stream params
+    out_width: "400"
+    out_height: "200"
+
+    debug: true # does nothing
+    low_resources: true # does nothing
+  my_rtsp2rtp_cam:
+    type: "RTSP2RTP" # type of the stream. Either ROS2RTP, RTSP2ROS or RTSP2RTP.
+    enable_stream_topic: "my_great_cam_gst_enable" # the topic to enable or disable the stream
+
+    # The parameters of the gstreamer pipeline
+    # 'rtspsrc location={gst_rtsp_url}{gst_pipeline_1}width={out_width},height={out_height}{gst_pipeline_2} udpsink host="{pcc_host}" port="{pcc_port}"'
+    gst_rtsp_url: "rtsp://user:pass@192.168.0.90:554/cam"
+    gst_pipeline_1: " latency=0 ! decodebin max-size-time=30000000000 ! nvvidconv ! nvjpegenc ! imgjpeg,"
+    gst_pipeline_2: " ! rtpjpegpay !"
+
+    # output stream params
+    framerate: "20"  # not used for now as not compatible with the pipeline on the jetson
+    out_width: "400"
+    out_height: "200"
+
+    # The address and the port of the server to send the image to.
+    # /!\/!\ no other robot or camera can send images to the same port /!\/!\
+    pcc_host: "mirador"
+    pcc_port: "5000"
+
+    debug: true # does nothing
+    low_resources: true # does nothing

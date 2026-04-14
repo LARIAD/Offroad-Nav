@@ -1,0 +1,137 @@
+TebLocalPlannerROS:
+
+ odom_topic: /imu/odometry
+ map_frame: /odom
+ 
+ # ENSTA-Mobilex specific 
+#  obstacle_layers_names: ["local_costmap/elevation_5", "local_costmap/elevation_15", "local_costmap/elevation_30"]
+# obstacle_layers_names: [ "local_costmap/elevation_15","local_costmap/elevation_30"] #"local_costmap/elevation_15",
+ obstacle_layers_names: [ "local_costmap/elevation_30"]
+ #layers_max_vel: [5.55, 2.78, 1.39] # Equivalent to max velocity 20km/h, half max velocity, and a quarter, in the same order as layers names
+# layers_max_vel: [2.78, 1.39]
+ layers_max_vel: [2.78]
+# layers_max_vel: [4.0, ]
+# layers_max_vel: [3.00, 1.50, 0.75] # Equivalent to max velocity 20km/h, half max velocity, and a quarter, in the same order as layers names
+ enable_multi_costmap_planning: True # Change TebOptimalPlanner or HomotopyClassPlanner for the multi_costmap planning
+ 
+ # Trajectory
+  
+ teb_autosize: True
+ dt_ref: 0.3 #0.3
+ dt_hysteresis: 0.1
+ max_samples: 20
+ global_plan_overwrite_orientation: True
+ allow_init_with_backwards_motion: False
+ max_global_plan_lookahead_dist: 5.0
+ global_plan_viapoint_sep: 5
+ global_plan_prune_distance: 1
+ exact_arc_length: False
+ feasibility_check_no_poses: 5
+ publish_feedback: True
+    
+ transform_tolerance: 1.0
+ # Robot
+         
+ max_vel_x: 1.5 #.75 
+ max_vel_x_backwards: 0.
+ max_vel_y: 0.0
+ max_vel_theta: 2. #1.0
+ acc_lim_x: 4.0 # 7.#0.6 # 2.
+ acc_lim_theta: 1.5 #0.8 #1.0
+ min_turning_radius: 0.0 # diff-drive robot (can turn on place!)
+
+ footprint_model:
+   type: "two_circles"
+   front_offset: 0.475
+   front_radius: 0.6
+   rear_offset: -0.475
+   rear_radius: 0.6
+
+ # GoalTolerance
+    
+ xy_goal_tolerance: 1.0
+ yaw_goal_tolerance: 1.0
+ free_goal_vel: False
+ complete_global_plan: True
+    
+ # Obstacles
+    
+ min_obstacle_dist: 1.0 # This value is added to the robot radius if footprint_model is set to "circular", "two_circles" or "polygon".
+ inflation_dist: 2.5 #1.10
+ include_costmap_obstacles: True
+ costmap_obstacles_behind_robot_dist: 1.5
+ obstacle_poses_affected: 20 #30
+
+ dynamic_obstacle_inflation_dist: 0.5
+ include_dynamic_obstacles: false # True
+
+ costmap_converter_plugin: ""
+ #costmap_converter_plugin: "costmap_converter::CostmapToPolygonsDBSConcaveHull"
+ costmap_converter_spin_thread: True
+ costmap_converter_rate: 5
+ 
+ ## Configure plugins (namespace move_base/TebLocalPlannerROS/PLUGINNAME)
+ ## The parameters must be added for each plugin separately
+ costmap_converter/CostmapToPolygonsDBSConcaveHull:
+   cluster_max_distance: 0.4
+   cluster_min_pts: 2
+   cluster_max_pts: 30 # Limit cluster size to avoid large L or U shapes)
+   convex_hull_min_pt_separation: 0.0 # Distance in meters, 0: Keep all
+   concave_hull_depth: 1.0 # Smaller depth: sharp surface, large depth: convex hull
+
+ # Optimization
+    
+ no_inner_iterations: 5
+ no_outer_iterations: 4
+ optimization_activate: True
+ optimization_verbose: False
+ penalty_epsilon: 0.1
+ obstacle_cost_exponent: 4
+ weight_max_vel_x: 4. #2
+ weight_max_vel_theta: 20. #10 #1
+ weight_acc_lim_x: 1. # 1
+ weight_acc_lim_theta: 1. # 1
+ weight_kinematics_nh: 1000
+ weight_kinematics_forward_drive: 1000
+ weight_kinematics_turning_radius: 1
+ weight_optimaltime: 5. #1 # must be > 0
+ weight_shortest_path: 5.0 
+ weight_obstacle: 100
+ weight_inflation: 0.2
+ weight_dynamic_obstacle: 10
+ weight_dynamic_obstacle_inflation: 0.2
+ weight_viapoint: 1
+ weight_adapt_factor: 2
+
+ # Homotopy Class Planner
+
+ enable_homotopy_class_planning: True
+ enable_multithreading: True
+ max_number_classes: 2
+ selection_cost_hysteresis: 0.8 #1.0
+ selection_prefer_initial_plan: 0.8 #0.9
+ selection_obst_cost_scale: 100.0
+ selection_alternative_time_cost: False
+ 
+ roadmap_graph_no_samples: 15
+ roadmap_graph_area_width: 5
+ roadmap_graph_area_length_scale: 1.0
+ h_signature_prescaler: 0.5
+ h_signature_threshold: 0.1
+ obstacle_heading_threshold: 0.45
+ switching_blocking_period: 0.0
+ viapoints_all_candidates: True
+ delete_detours_backwards: True
+ max_ratio_detours_duration_best_duration: 3.0
+ visualize_hc_graph: False
+ visualize_with_time_as_z_axis_scale: False
+
+# Recovery
+ 
+ shrink_horizon_backup: True
+ shrink_horizon_min_duration: 10
+ oscillation_recovery: True
+ oscillation_v_eps: 0.1
+ oscillation_omega_eps: 0.1
+ oscillation_recovery_min_duration: 10
+ oscillation_filter_duration: 10

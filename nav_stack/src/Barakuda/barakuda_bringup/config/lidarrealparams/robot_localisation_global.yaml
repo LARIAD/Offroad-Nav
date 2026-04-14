@@ -1,0 +1,54 @@
+frequency: 25.
+
+publish_tf: true
+map_frame: map
+odom_frame: odom
+base_link_frame: base_link
+world_frame: map
+
+two_d_mode: false
+sensor_timeout: 0.2
+transform_timeout: 0.1
+#gravitational_acceleration: -9.80665
+#use_sim_time: true # /!\/!\/!\/!\ DO NOT COMMIT WITH THIS SET TO TRUE /!\/!\/!\/!\
+
+#print_diagnostics: true
+#debug: true
+#debug_out_file: /ekf_global.txt
+
+# === SBG
+imu0: /imu/data
+imu0_remove_gravitational_acceleration: true
+imu0_config: [ false, false, false,
+               false, false, false,
+               false, false, false,
+               true, true, true,
+               true, true, true ]
+
+# === DLIO
+odom1: /dlio/odom_node/odom
+odom1_config: [ false, false, false,
+                false, false, false,
+                true, true, true,
+                true, true, true,
+                false, false, false ]
+odom1_differential: false
+
+# === GPS Position
+odom0: /odometry/gps
+odom0_config: [ true, true, true,
+                false, false, false,
+                false, false, false,
+                false, false, false,
+                false, false, false ]
+odom0_differential: false
+
+# === GPS Heading
+# /!\ Be aware that the roll/pitch have a degree of freedom that is not represented here.
+# /!\ It is inherent to how the GNSS Heading is computed.
+imu1: /imu/hdt
+imu1_config: [ false, false, false,
+               true, true, true,
+               false, false, false,
+               false, false, false,
+               false, false, false ]

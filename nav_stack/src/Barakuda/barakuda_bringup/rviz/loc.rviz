@@ -1,0 +1,451 @@
+Panels:
+  - Class: rviz/Displays
+    Help Height: 78
+    Name: Displays
+    Property Tree Widget:
+      Expanded:
+        - /Global Options1
+        - /Status1
+        - /Grid1
+        - /TF1/Tree1
+        - /Odometry1/Covariance1/Position1
+        - /Odometry2/Covariance1
+        - /Odometry2/Covariance1/Orientation1
+        - /Odometry3/Covariance1/Position1
+      Splitter Ratio: 0.5
+    Tree Height: 752
+  - Class: rviz/Selection
+    Name: Selection
+  - Class: rviz/Tool Properties
+    Expanded:
+      - /2D Pose Estimate1
+      - /2D Nav Goal1
+      - /Publish Point1
+    Name: Tool Properties
+    Splitter Ratio: 0.5886790156364441
+  - Class: rviz/Views
+    Expanded:
+      - /Current View1
+    Name: Views
+    Splitter Ratio: 0.5
+  - Class: rviz/Time
+    Name: Time
+    SyncMode: 0
+    SyncSource: ""
+Preferences:
+  PromptSaveOnExit: true
+Toolbars:
+  toolButtonStyle: 2
+Visualization Manager:
+  Class: ""
+  Displays:
+    - Alpha: 0.5
+      Cell Size: 50
+      Class: rviz/Grid
+      Color: 160; 160; 164
+      Enabled: true
+      Line Style:
+        Line Width: 0.029999999329447746
+        Value: Lines
+      Name: Grid
+      Normal Cell Count: 0
+      Offset:
+        X: 0
+        Y: 0
+        Z: 0
+      Plane: XY
+      Plane Cell Count: 40
+      Reference Frame: <Fixed Frame>
+      Value: true
+    - Class: rviz/TF
+      Enabled: true
+      Filter (blacklist): ""
+      Filter (whitelist): ""
+      Frame Timeout: 15
+      Frames:
+        All Enabled: false
+        axis_base:
+          Value: false
+        base_footprint:
+          Value: true
+        base_link:
+          Value: true
+        front_left_wheel_link:
+          Value: false
+        front_right_wheel_link:
+          Value: false
+        imu_link:
+          Value: true
+        map:
+          Value: true
+        odom:
+          Value: true
+        os_sensor:
+          Value: false
+        rear_left_wheel_link:
+          Value: false
+        rear_right_wheel_link:
+          Value: false
+        sbg_ant1_apc:
+          Value: true
+        struct_bot_left_ouster_rot_link:
+          Value: false
+        struct_bot_left_zed_rot_link:
+          Value: false
+        struct_bot_right_ouster_rot_link:
+          Value: false
+        struct_bot_right_zed_rot_link:
+          Value: false
+        struct_box_ext_link:
+          Value: false
+        struct_box_front_link:
+          Value: false
+        struct_left_gnss_link:
+          Value: false
+        struct_left_ouster_rot_link:
+          Value: false
+        struct_left_zed_rot_link:
+          Value: false
+        struct_ouster_support_link:
+          Value: false
+        struct_ouster_support_plate_link:
+          Value: false
+        struct_parallel_bar_link:
+          Value: false
+        struct_right_gnss_link:
+          Value: false
+        struct_right_ouster_rot_link:
+          Value: false
+        struct_right_zed_rot_link:
+          Value: false
+        struct_top_box_front_link:
+          Value: false
+        struct_top_left_ouster_rot_link:
+          Value: false
+        struct_top_left_zed_rot_link:
+          Value: false
+        struct_top_right_ouster_rot_link:
+          Value: false
+        struct_top_right_zed_rot_link:
+          Value: false
+        struct_zed_support_link:
+          Value: false
+        top_plate_link:
+          Value: false
+        utm:
+          Value: true
+        zed2i_base_link:
+          Value: false
+        zed2i_camera_center:
+          Value: false
+        zed2i_left_camera_frame:
+          Value: false
+        zed2i_left_camera_optical_frame:
+          Value: false
+        zed2i_right_camera_frame:
+          Value: false
+        zed2i_right_camera_optical_frame:
+          Value: false
+      Marker Alpha: 1
+      Marker Scale: 1
+      Name: TF
+      Show Arrows: true
+      Show Axes: true
+      Show Names: true
+      Tree:
+        map:
+          odom:
+            base_link:
+              base_footprint:
+                {}
+              front_left_wheel_link:
+                {}
+              front_right_wheel_link:
+                {}
+              imu_link:
+                sbg_ant1_apc:
+                  {}
+              rear_left_wheel_link:
+                {}
+              rear_right_wheel_link:
+                {}
+              top_plate_link:
+                axis_base:
+                  {}
+                struct_parallel_bar_link:
+                  struct_box_ext_link:
+                    struct_box_front_link:
+                      struct_bot_left_ouster_rot_link:
+                        struct_left_ouster_rot_link:
+                          struct_top_left_ouster_rot_link:
+                            {}
+                      struct_bot_right_ouster_rot_link:
+                        struct_right_ouster_rot_link:
+                          struct_top_right_ouster_rot_link:
+                            struct_ouster_support_link:
+                              os_sensor:
+                                {}
+                              struct_ouster_support_plate_link:
+                                {}
+                      struct_top_box_front_link:
+                        struct_bot_left_zed_rot_link:
+                          struct_left_zed_rot_link:
+                            struct_top_left_zed_rot_link:
+                              {}
+                        struct_bot_right_zed_rot_link:
+                          struct_right_zed_rot_link:
+                            struct_top_right_zed_rot_link:
+                              struct_zed_support_link:
+                                zed2i_base_link:
+                                  zed2i_camera_center:
+                                    zed2i_left_camera_frame:
+                                      zed2i_left_camera_optical_frame:
+                                        {}
+                                    zed2i_right_camera_frame:
+                                      zed2i_right_camera_optical_frame:
+                                        {}
+                  struct_left_gnss_link:
+                    {}
+                  struct_right_gnss_link:
+                    {}
+          utm:
+            {}
+      Update Interval: 0
+      Value: true
+    - Alpha: 0.20000000298023224
+      Class: rviz_plugin_tutorials/Imu
+      Color: 204; 51; 204
+      Enabled: true
+      History Length: 1
+      Name: Imu
+      Queue Size: 10
+      Topic: /imu/data
+      Unreliable: false
+      Value: true
+    - Alpha: 1
+      Class: rviz/Axes
+      Enabled: true
+      Length: 1
+      Name: Axes
+      Radius: 0.10000000149011612
+      Reference Frame: <Fixed Frame>
+      Show Trail: false
+      Value: true
+    - Alpha: 1
+      Class: rviz/Axes
+      Enabled: true
+      Length: 1
+      Name: Axes
+      Radius: 0.10000000149011612
+      Reference Frame: odom
+      Show Trail: false
+      Value: true
+    - Alpha: 1
+      Class: rviz/Axes
+      Enabled: true
+      Length: 1
+      Name: Axes
+      Radius: 0.10000000149011612
+      Reference Frame: base_link
+      Show Trail: false
+      Value: true
+    - Angle Tolerance: 0.10000000149011612
+      Class: rviz/Odometry
+      Covariance:
+        Orientation:
+          Alpha: 0.5
+          Color: 255; 255; 127
+          Color Style: Unique
+          Frame: Local
+          Offset: 1
+          Scale: 1
+          Value: false
+        Position:
+          Alpha: 0.10000000149011612
+          Color: 0; 170; 0
+          Scale: 1
+          Value: true
+        Value: true
+      Enabled: true
+      Keep: 100
+      Name: Odometry
+      Position Tolerance: 0.10000000149011612
+      Queue Size: 10
+      Shape:
+        Alpha: 0
+        Axes Length: 1
+        Axes Radius: 0.10000000149011612
+        Color: 255; 25; 0
+        Head Length: 0.30000001192092896
+        Head Radius: 0.10000000149011612
+        Shaft Length: 1
+        Shaft Radius: 0.05000000074505806
+        Value: Arrow
+      Topic: /odometry/gps
+      Unreliable: false
+      Value: true
+    - Angle Tolerance: 0.10000000149011612
+      Class: rviz/Odometry
+      Covariance:
+        Orientation:
+          Alpha: 0.5
+          Color: 255; 255; 127
+          Color Style: Unique
+          Frame: Local
+          Offset: 1
+          Scale: 1
+          Value: true
+        Position:
+          Alpha: 0.30000001192092896
+          Color: 204; 51; 204
+          Scale: 1
+          Value: true
+        Value: true
+      Enabled: true
+      Keep: 100
+      Name: Odometry
+      Position Tolerance: 0.10000000149011612
+      Queue Size: 10
+      Shape:
+        Alpha: 1
+        Axes Length: 1
+        Axes Radius: 0.10000000149011612
+        Color: 255; 25; 0
+        Head Length: 0.30000001192092896
+        Head Radius: 0.10000000149011612
+        Shaft Length: 1
+        Shaft Radius: 0.05000000074505806
+        Value: Arrow
+      Topic: /odometry/filtered/global
+      Unreliable: false
+      Value: true
+    - Angle Tolerance: 0.10000000149011612
+      Class: rviz/Odometry
+      Covariance:
+        Orientation:
+          Alpha: 0.5
+          Color: 255; 255; 127
+          Color Style: Unique
+          Frame: Local
+          Offset: 1
+          Scale: 1
+          Value: true
+        Position:
+          Alpha: 0.30000001192092896
+          Color: 204; 51; 204
+          Scale: 1
+          Value: true
+        Value: true
+      Enabled: true
+      Keep: 100
+      Name: Odometry
+      Position Tolerance: 0.10000000149011612
+      Queue Size: 10
+      Shape:
+        Alpha: 1
+        Axes Length: 1
+        Axes Radius: 0.10000000149011612
+        Color: 0; 0; 255
+        Head Length: 0.30000001192092896
+        Head Radius: 0.10000000149011612
+        Shaft Length: 1
+        Shaft Radius: 0.05000000074505806
+        Value: Arrow
+      Topic: /odometry/filtered/local
+      Unreliable: false
+      Value: true
+    - Angle Tolerance: 0.10000000149011612
+      Class: rviz/Odometry
+      Covariance:
+        Orientation:
+          Alpha: 0.10000000149011612
+          Color: 255; 255; 127
+          Color Style: Unique
+          Frame: Local
+          Offset: 1
+          Scale: 1
+          Value: true
+        Position:
+          Alpha: 0.10000000149011612
+          Color: 204; 51; 204
+          Scale: 1
+          Value: true
+        Value: true
+      Enabled: false
+      Keep: 100
+      Name: Odometry
+      Position Tolerance: 0.10000000149011612
+      Queue Size: 10
+      Shape:
+        Alpha: 1
+        Axes Length: 1
+        Axes Radius: 0.10000000149011612
+        Color: 255; 25; 0
+        Head Length: 0.30000001192092896
+        Head Radius: 0.10000000149011612
+        Shaft Length: 1
+        Shaft Radius: 0.05000000074505806
+        Value: Arrow
+      Topic: /imu/odometry
+      Unreliable: false
+      Value: false
+  Enabled: true
+  Global Options:
+    Background Color: 48; 48; 48
+    Default Light: true
+    Fixed Frame: map
+    Frame Rate: 30
+  Name: root
+  Tools:
+    - Class: rviz/Interact
+      Hide Inactive Objects: true
+    - Class: rviz/MoveCamera
+    - Class: rviz/Select
+    - Class: rviz/FocusCamera
+    - Class: rviz/Measure
+    - Class: rviz/SetInitialPose
+      Theta std deviation: 0.2617993950843811
+      Topic: /initialpose
+      X std deviation: 0.5
+      Y std deviation: 0.5
+    - Class: rviz/SetGoal
+      Topic: /move_base_simple/goal
+    - Class: rviz/PublishPoint
+      Single click: true
+      Topic: /clicked_point
+  Value: true
+  Views:
+    Current:
+      Angle: 0
+      Class: rviz/TopDownOrtho
+      Enable Stereo Rendering:
+        Stereo Eye Separation: 0.05999999865889549
+        Stereo Focal Distance: 1
+        Swap Stereo Eyes: false
+        Value: false
+      Invert Z Axis: false
+      Name: Current View
+      Near Clip Distance: 0.009999999776482582
+      Scale: 5.342122554779053
+      Target Frame: <Fixed Frame>
+      X: 55.204132080078125
+      Y: 3.8699653148651123
+    Saved: ~
+Window Geometry:
+  Displays:
+    collapsed: false
+  Height: 1043
+  Hide Left Dock: false
+  Hide Right Dock: false
+  QMainWindow State: 000000ff00000000fd00000004000000000000015600000379fc0200000008fb0000001200530065006c0065006300740069006f006e00000001e10000009b0000005c00fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073010000003b00000379000000c700fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261000000010000010f00000379fc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a00560069006500770073010000003b00000379000000a000fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e10000019700000003000007800000003efc0100000002fb0000000800540069006d00650100000000000007800000030700fffffffb0000000800540069006d006501000000000000045000000000000000000000050f0000037900000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  Selection:
+    collapsed: false
+  Time:
+    collapsed: false
+  Tool Properties:
+    collapsed: false
+  Views:
+    collapsed: false
+  Width: 1920
+  X: 1080
+  Y: 0

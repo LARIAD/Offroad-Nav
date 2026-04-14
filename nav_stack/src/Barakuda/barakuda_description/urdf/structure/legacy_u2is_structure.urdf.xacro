@@ -1,0 +1,398 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="u2is_struct">
+
+        <material name="white">
+            <color rgba="1.0 1.0 1.0 1.0"/>
+        </material>
+
+        <material name="grey">
+            <color rgba="0.2 0.2 0.2 1.0"/>
+        </material>
+
+        <material name="light_grey">
+            <color rgba="0.6 0.6 0.6 1.0"/>
+        </material>
+
+        <material name="red">
+            <color rgba="1.0 0.1 0.1 1.0"/>
+        </material>
+
+    <!--<xacro:include filename="$(find zed_wrapper)/urdf/zed_macro.urdf.xacro" /> -->
+    
+    <!--xacro:include filename="$(find barakuda_description)/urdf/structure/zed_macro.urdf.xacro" /-->
+    
+
+
+    <xacro:macro name="u2is_struct" params="name=u2is_box parent prefix=struct_ *origin">
+       
+        <!-- Spawn the sensor arch link -->
+        <link name="${prefix}box_link">
+             <origin xyz="0 0 0" rpy="0 0 0"/>
+             <visual>
+                 <geometry>
+                     <box size="0.52 0.52 0.139"/>
+                 </geometry>
+                 <material name="white"/>
+             </visual>
+        </link>
+
+        <joint name="${parent}_to_box" type="fixed">
+            <parent link="${parent}" />
+            <child link="${prefix}box_link" />
+            <xacro:insert_block name="origin" />
+        </joint>
+
+        <link name="${prefix}front_link">
+             <origin xyz="0 0 0" rpy="0 0 0"/>
+             <visual>
+                 <geometry>
+                     <box size="0.02 0.11 0.02"/>
+                 </geometry>
+                 <material name="light_grey"/>
+             </visual>
+        </link>
+         
+        <joint name="box_to_front" type="fixed">
+            <parent link="${prefix}box_link" />
+            <child link="${prefix}front_link" />
+            <origin xyz="0.27 0. 0.0795" rpy="0 0 0"/>
+        </joint>
+
+        <link name="${prefix}left_link">
+             <origin xyz="0 0 0" rpy="0 0 0"/>
+             <visual>
+                 <geometry>
+                     <box size="0.02 0.325 0.02"/>
+                 </geometry>
+                 <material name="light_grey"/>
+             </visual>
+        </link>
+         
+        <joint name="box_to_left" type="fixed">
+            <parent link="${prefix}box_link" />
+            <child link="${prefix}left_link" />
+            <origin xyz="0.145 0.4225 0.0555" rpy="0 0 0"/>
+        </joint>
+        
+        <link name="${prefix}right_link">
+             <origin xyz="0 0 0" rpy="0 0 0"/>
+             <visual>
+                 <geometry>
+                     <box size="0.02 -0.325 0.02"/>
+                 </geometry>
+                 <material name="light_grey"/>
+             </visual>
+        </link>
+         
+        <joint name="box_to_right" type="fixed">
+            <parent link="${prefix}box_link" />
+            <child link="${prefix}right_link" />
+            <origin xyz="0.145 -0.4225 0.0555" rpy="0 0 0"/>
+        </joint>
+        
+        <link name="${prefix}up_box_link">
+             <origin xyz="0 0 0" rpy="0 0 0"/>
+             <visual>
+                 <geometry>
+                     <box size="0.28 0.38 0.135"/>
+                 </geometry>
+                 <material name="white"/>
+             </visual>
+        </link>
+         
+        <joint name="box_to_up_box" type="fixed">
+            <parent link="${prefix}box_link" />
+            <child link="${prefix}up_box_link" />
+            <origin xyz="-0.095 0 0.139" rpy="0 0 0"/>
+        </joint>
+
+    </xacro:macro>
+
+    <xacro:macro name="u2is_struct_front" params="name=u2is_stick parent prefix=front_struct_ *origin">
+
+        <xacro:property name="rot_zed" value="${-0.0094*pi}" />
+        <xacro:property name="rot_ouster" value="${0.61*pi}" />
+        <!-- Spawn the sensor arch link -->
+        <link name="${prefix}stick_box_link">
+             <origin xyz="0 0 0" rpy="0 0 0"/>
+             <visual>
+                 <geometry>
+                     <box size="0.61 0.2 0.02"/>
+                 </geometry>
+                 <material name="light_grey"/>
+             </visual>
+        </link>
+
+        <joint name="${parent}_to_stick_box" type="fixed">
+            <parent link="${parent}" />
+            <child link="${prefix}stick_box_link" />
+            <xacro:insert_block name="origin" />
+        </joint>
+
+        <link name="${prefix}front_stick_box_link">
+             <origin xyz="0 0 0" rpy="0 0 0"/>
+             <visual>
+                 <geometry>
+                     <box size="0.02 0.2 0.27"/>
+                 </geometry>
+                 <material name="light_grey"/>
+             </visual>
+        </link>
+         
+        <joint name="${prefix}stick_box_to_${prefix}front_stick_box" type="fixed">
+            <parent link="${prefix}stick_box_link" />
+            <child link="${prefix}front_stick_box_link" />
+            <origin xyz="0.315 0. -0.125" rpy="0 0 0"/>
+        </joint>
+
+        <link name="${prefix}front_stick_zed_rot_link">
+            <visual>            
+                 <origin xyz="0.0075 0.09 0.0" rpy="0 0 0"/>
+                 <geometry>
+                     <box size="0.015 0.02 0.02"/>
+                 </geometry>
+                 <material name="light_grey"/>
+             </visual>
+             <visual>            
+                 <origin xyz="0.0075 -0.09 0.0" rpy="0 0 0"/>
+                 <geometry>
+                     <box size="0.015 0.02 0.02"/>
+                 </geometry>
+                 <material name="light_grey"/>
+             </visual>
+             <visual>            
+                 <origin xyz="${cos(-rot_zed)*(-0.0075)} -0.09 ${-sin(-rot_zed)*(-0.0075)}" rpy="0 ${-rot_zed} 0"/>
+                 <geometry>
+                     <box size="0.015 0.02 0.02"/>
+                 </geometry>
+                 <material name="light_grey"/>
+             </visual>
+             <visual>            
+                 <origin xyz="${cos(-rot_zed)*(-0.0075)} 0.09 ${-sin(-rot_zed)*(-0.0075)}" rpy="0 ${-rot_zed} 0"/>
+                 <geometry>
+                     <box size="0.015 0.02 0.02"/>
+                 </geometry>
+                 <material name="light_grey"/>
+             </visual>
+        </link>
+         
+        <joint name="${prefix}front_stick_box_to_${prefix}front_stick_zed_rot" type="fixed">
+            <parent link="${prefix}front_stick_box_link" />
+            <child link="${prefix}front_stick_zed_rot_link" />
+            <origin xyz="0.025 0. 0.02" rpy="0 ${rot_zed} 0"/>
+        </joint>
+        
+        <link name="${prefix}front_stick_zed_link">
+             <visual>                 
+                 <geometry>
+                     <box size="0.02 0.2 0.02"/>
+                 </geometry>
+                 <material name="light_grey"/>
+             </visual>
+        </link>
+        
+        <joint name="${prefix}front_stick_zed_rot_to_${prefix}front_stick_zed" type="fixed">
+            <parent link="${prefix}front_stick_zed_rot_link" />
+            <child link="${prefix}front_stick_zed_link" />
+            <origin xyz="0.025 0. 0." rpy="0 0 0"/>
+        </joint>
+
+        <link name="${prefix}stick_ouster_rot_link">
+             <visual>            
+                 <origin xyz="-0.0075 0.09 0.0" rpy="0 0 0"/>
+                 <geometry>
+                     <box size="0.015 0.02 0.02"/>
+                 </geometry>
+                 <material name="light_grey"/>
+             </visual>
+             <visual>            
+                 <origin xyz="-0.0075 -0.09 0.0" rpy="0 0 0"/>
+                 <geometry>
+                     <box size="0.015 0.02 0.02"/>
+                 </geometry>
+                 <material name="light_grey"/>
+             </visual>
+             <visual>            
+                 <origin xyz="${-sin(-rot_ouster)*0.0075} -0.09 ${-cos(-rot_ouster)*0.0075}" rpy="0 ${-rot_ouster} 0"/>
+                 <geometry>
+                     <box size="0.02 0.02 0.015"/>
+                 </geometry>
+                 <material name="light_grey"/>
+             </visual>
+             <visual>            
+                 <origin xyz="${-sin(-rot_ouster)*0.0075} 0.09 ${-cos(-rot_ouster)*0.0075}" rpy="0 ${-rot_ouster} 0"/>
+                 <geometry>
+                     <box size="0.02 0.02 0.015"/>
+                 </geometry>
+                 <material name="light_grey"/>
+             </visual>
+        </link>
+            
+         
+        <joint name="${prefix}stick_box_to_${prefix}stick_ouster_rot" type="fixed">
+            <parent link="${prefix}stick_box_link" />
+            <child link="${prefix}stick_ouster_rot_link" />
+            <origin xyz="0.295 0. 0.025" rpy="0 ${rot_ouster} 0"/>
+        </joint>
+        
+        <link name="${prefix}stick_ouster_link">
+             <visual>                 
+                 <geometry>
+                     <box size="0.02 0.2 0.02"/>
+                 </geometry>
+                 <material name="light_grey"/>
+             </visual>
+        </link>
+        
+        <joint name="${prefix}front_stick_ouster_rot_to_${prefix}front_stick_ouster" type="fixed">
+            <parent link="${prefix}stick_ouster_rot_link" />
+            <child link="${prefix}stick_ouster_link" />
+            <origin xyz="-0.025 0. 0." rpy="0 0 0"/>
+        </joint>
+
+    </xacro:macro>
+
+    <xacro:macro name="imu" params="name=imu parent prefix=imu_ *origin">
+
+        <xacro:property name="left_gnss_lever_arm" value="-0.12 -0.51 0.03" />
+        <xacro:property name="right_gnss_lever_arm" value="-0.12 0.51 0.03" />
+
+        <!-- IMU Link -->
+        <link name="${prefix}_base">
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+             <visual>
+            <geometry>
+                <box size="0.045 0.06 0.007"/>
+            </geometry>
+            <material name="grey"/>
+            </visual>
+        </link>
+        
+        <joint name="front_to_imu_base" type="fixed">
+            <xacro:insert_block name="origin" />
+            <parent link="${parent}" />
+            <child link="${prefix}_base" />
+        </joint>
+
+        <link name="${prefix}_body">
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+             <visual>
+            <geometry>
+                <box size="0.036 0.038 0.033"/>
+            </geometry>
+            <material name="red"/>
+            </visual>
+        </link>
+        
+        <joint name="imu_base_to_imu_body" type="fixed">
+            <origin xyz="0 0 0.0165" rpy="0 0 0" />
+            <parent link="${prefix}_base" />
+            <child link="${prefix}_body" />
+        </joint>
+
+        <link name="imu_link_SBG">
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+        </link>
+        
+        <joint name="imu_body_to_imu_link" type="fixed">
+            <origin xyz="-0.012 0 0.0165" rpy="${-pi} 0 0" />
+            <parent link="${prefix}_body" />
+            <child link="imu_link_SBG" />
+        </joint>
+        
+        
+        <link name="left_gnss_link">
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <visual>
+            <geometry>
+                <cylinder radius="0.07" length="0.02"/>
+            </geometry>
+            <material name="grey"/>
+        </visual>
+        </link>
+
+        <joint name="imu_to_left_gnss_joint" type="fixed">
+            <origin xyz="${left_gnss_lever_arm}" rpy="${-pi} 0 0" />
+            <parent link="imu_link_SBG" />
+            <child link="left_gnss_link" />
+        </joint>
+
+        <link name="right_gnss_link">
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <visual>
+            <geometry>
+                <cylinder radius="0.07" length="0.02"/>
+            </geometry>
+            <material name="grey"/>
+        </visual>
+        </link>
+
+        <joint name="imu_to_right_gnss_joint" type="fixed">
+            <origin xyz="${right_gnss_lever_arm}" py="${-pi} 0 0" />
+            <parent link="imu_link_SBG" />
+            <child link="right_gnss_link" />
+        </joint>
+
+    </xacro:macro>
+
+    <xacro:macro name="ouster" params="name=ouster parent prefix=ouster_ *origin">
+        <link name="os_sensor"><!--${prefix}base_link"-->
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <visual>
+               <origin xyz="0 0 0" rpy="${pi/2} 0 ${pi/2}"/>
+               <geometry>
+                   <mesh filename="package://barakuda_description/meshes/ouster.stl" scale=".001 .0014 .001" />
+               </geometry>
+               <material name="light_grey"/>
+            </visual>
+            <visual>
+               <origin xyz="0 0 0.08" rpy="0 0 0"/>
+               <geometry>
+                   <sphere radius="0.0375" />
+               </geometry>
+               <material name="black"/>
+            </visual>
+        </link>
+        
+        <joint name="${parent}_to_${prefix}base_link" type="fixed">
+            <xacro:insert_block name="origin" />
+            <parent link="${parent}" />
+            <child link="os_sensor" />
+            <!--child link="${prefix}base_link" /-->
+        </joint>
+    </xacro:macro>
+
+    <xacro:macro name="u2is_struct_all_sensor" params="name=u2is_struct_all_sensor parent" >
+        <xacro:u2is_struct name="u2is_struct" parent="top_plate_link">
+            <origin xyz="-0.055 0 0.0695 " rpy="0 0 0" />
+        </xacro:u2is_struct>
+        
+        <xacro:imu name="imu" parent="struct_front_link">
+            <origin xyz="0 0 0.0135" rpy="0 0 0" />
+        </xacro:imu>
+
+        <xacro:u2is_struct_front name="u2is_struct" parent="top_plate_link">
+            <origin xyz="0.565 0 0.01 " rpy="0 0 0" />
+        </xacro:u2is_struct_front>
+        
+        <!--
+        <xacro:zed_camera name="zed2i" model="zed2i" parent="front_struct_front_stick_zed_link">
+        <origin 
+            xyz="0.015 0. 0.01 " 
+            rpy="0 0 0" 
+        />
+        
+        </xacro:zed_camera>-->
+
+        <!--xacro:zed_camera name="zed" model="zed2i" parent="front_struct_front_stick_zed_link">
+            <origin xyz="0.015 0. 0.01 " rpy="0 0 0" />
+        </xacro:zed_camera-->
+        
+        <xacro:ouster name="ouster" parent="front_struct_stick_ouster_link">
+            <origin xyz="0.0 0. 0.01 " rpy="0 0 0" />
+        </xacro:ouster>
+
+
+    </xacro:macro>
+
+</robot>

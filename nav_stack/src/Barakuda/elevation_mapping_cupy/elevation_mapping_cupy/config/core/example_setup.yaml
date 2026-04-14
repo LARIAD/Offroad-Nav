@@ -1,0 +1,71 @@
+#### Plugins ########
+plugin_config_file: '$(rospack find elevation_mapping_cupy)/config/core/plugin_config.yaml'
+
+#### Channel Fusions ########
+pointcloud_channel_fusions:
+  rgb: 'color'                # 'color' fusion is used for the 'rgb' channel
+  default: 'average'          # 'average' fusion is used for channels not listed here
+
+image_channel_fusions:
+  rgb: 'color'                # 'color' fusion is used for the 'rgb' channel
+  default: 'exponential'      # 'exponential' fusion is used for channels not listed here
+  feat_.*: 'exponential'      # 'exponential' fusion is also used for any channel starting with 'feat_' Regular expressions can be used for channel names
+
+#### Subscribers ########
+subscribers:
+  pointcloud_sensor_name:
+    topic_name: '/ouster/points' #'/robot/dlio/odom_node/pointcloud/deskewed' # '/kiss/frame' #'/camera/depth/points' #'/robot/dlio/odom_node/pointcloud/deskewed' # '/ouster/points'
+    data_type:  pointcloud  # pointcloud or image
+  # pointcloud_sensor_name_2:
+  #   topic_name: '/ouster/points2'
+  #   data_type:  pointcloud 
+# image_sensor_name:
+#   topic_name: '/zed2i/zed_node/rgb/image_rect_color'
+#   data_type:  image  # pointcloud or image
+#   camera_info_topic_name: '/zed2i/zed_node/rgb/camera_info'
+  #  channel_info_topic_name: '/camera/channel_info' # Maybe publish it ourselves?
+
+
+# subscribers:
+#   front_cam:
+#     topic_name: '/camera/depth/points'
+#     data_type: pointcloud
+#   color_cam: # for color camera
+#     topic_name: '/camera/rgb/image_raw'
+#     camera_info_topic_name: '/camera/depth/camera_info'
+#     data_type: image
+#   semantic_cam: # for semantic images
+#     topic_name: '/front_cam/semantic_image'
+#     camera_info_topic_name: '/front_cam/camera/depth/camera_info_resized'
+#     channel_info_topic_name: '/front_cam/channel_info'
+#     data_type: image
+
+#### Publishers ########
+# topic_name:
+#   layers:               # Choose from 'elevation', 'variance', 'traversability', 'time', 'normal_x', 'normal_y', 'normal_z', 'color', plugin_layer_names
+#   basic_layers:         # basic_layers for valid cell computation (e.g. Rviz): Choose a subset of `layers`.
+#   fps:                  # Publish rate. Use smaller value than `map_acquire_fps`.
+
+publishers:
+  elevation_map_raw:
+    layers: ['elevation'] #, 'traversability', 'variance','rgb']
+    basic_layers: ['elevation']
+    fps: 20.0
+  # elevation_map_recordable:
+  #   layers: ['elevation', 'traversability']
+  #   basic_layers: ['elevation', 'traversability']
+  #   fps: 10.0
+  # elevation_map_filter:
+  #   layers: ['min_filter', 'smooth', 'erosion', 'removenoise','elevation']
+  #   basic_layers: ['min_filter']
+  #   fps: 20.0
+  # plugin_example: # Topic name
+  #   layers: [ 'elevation', 'example_layer', 'example_layer_large' ]
+  #   basic_layers: [ 'example_layer' ]
+  #   fps: 1.0        # The plugin is called with this fps.
+  # edge_detection:
+  #   input_layer_name: 'smooth' 
+  #   layers: ['sobel', 'prewitt', 'elevation', 'smooth', 'inpaint', 'laplace', 'gaussian_laplace1', 'gaussian_laplace3']
+  #   basic_layers: ['sobel', 'prewitt', 'elevation', 'inpaint', 'smooth']
+  #   fps: 20.0
+

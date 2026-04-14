@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="shark_barakuda">
+    <!-- Colors-->
+    <material name="sand">
+        <color rgba="0.535 0.496 0.410 1.0"/>
+    </material>
+    <material name="black">
+        <color rgba="0.05 0.05 0.05 1.0"/>
+    </material>
+
+        <!-- Base Link -->
+        <link name="base_link">
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+        </link>
+
+        <!-- Footprint -->
+        <link name="base_footprint"/>
+        <joint name="base_to_foot_print" type="fixed">
+            <parent link="base_link"/>
+            <child link="base_footprint"/>
+            <origin xyz="0 0 -0.4625"/>
+        </joint>
+
+        <!-- Top Plate -->
+        <link name="top_plate_link">
+            <visual>
+                <geometry>
+                    <mesh filename="package://barakuda_description/meshes/chassis.stl"/>
+                </geometry>
+                <material name="sand"/>
+            </visual>
+        </link>
+
+        <joint name="base_to_top_plate" type="fixed">
+            <parent link="base_link"/>
+            <child link="top_plate_link"/>
+            <origin xyz="0 0 0.4625"/>
+        </joint>
+
+        <!-- Front Left Wheel -->
+        <link name="front_left_wheel_link">
+            <visual>
+                <geometry>
+                    <mesh filename="package://barakuda_description/meshes/roue.stl"/>
+                </geometry>
+                <material name="black"/>
+            </visual>
+        </link>
+        <joint name="base_to_front_left_wheel" type="fixed">
+            <parent link="base_link"/>
+            <child link="front_left_wheel_link"/>
+            <origin rpy="-${pi/2} 0 0" xyz="0.525 0.3625 -0.1625"/>
+        </joint>
+
+        <!-- Front Right Wheel -->
+        <link name="front_right_wheel_link">
+            <visual>
+                <geometry>
+                    <mesh filename="package://barakuda_description/meshes/roue.stl"/>
+                </geometry>
+                <material name="black"/>
+            </visual>
+        </link>
+        <joint name="base_to_front_right_wheel" type="fixed">
+            <parent link="base_link"/>
+            <child link="front_right_wheel_link"/>
+            <origin rpy="${pi/2} 0 0" xyz="0.525 -0.3625 -0.1625"/>
+        </joint>
+
+        <!-- Rear Left Wheel -->
+        <link name="rear_left_wheel_link">
+            <visual>
+                <geometry>
+                    <mesh filename="package://barakuda_description/meshes/roue.stl"/>
+                </geometry>
+                <material name="black"/>
+            </visual>
+        </link>
+        <joint name="base_to_rear_left_wheel" type="fixed">
+            <parent link="base_link"/>
+            <child link="rear_left_wheel_link"/>
+            <origin rpy="-${pi/2} 0 0" xyz="-0.525 0.3625 -0.1625"/>
+        </joint>
+
+        <!-- Rear Right Wheel -->
+        <link name="rear_right_wheel_link">
+            <visual>
+                <geometry>
+                    <mesh filename="package://barakuda_description/meshes/roue.stl"/>
+                </geometry>
+                <material name="black"/>
+            </visual>
+        </link>
+        <joint name="base_to_rear_right_wheel" type="fixed">
+            <parent link="base_link"/>
+            <child link="rear_right_wheel_link"/>
+            <origin rpy="${pi/2} 0 0" xyz="-0.525 -0.3625 -0.1625"/>
+        </joint>
+</robot>

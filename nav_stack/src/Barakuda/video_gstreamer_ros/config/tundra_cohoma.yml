@@ -1,0 +1,49 @@
+# see description in $(find video_gstreamer_ros)/config/example.yaml
+
+streams:
+  front:
+    type: "RTSP2RTP"
+    enable_stream_topic: "gst/front_enable"
+    gst_rtsp_url: "rtsp://192.168.144.10:8554/H264Video"
+    gst_pipeline_1: " latency=0 ! rtph264depay ! h264parse ! avdec_h264 ! videoscale ! video/x-raw,"
+    gst_pipeline_2: " ! jpegenc ! rtpjpegpay !"
+    out_width: "400"
+    out_height: "200"
+    pcc_host: "11.0.0.44"
+    pcc_port: "5040"
+  gimbal:
+    type: "RTSP2RTP"
+    enable_stream_topic: "gst/gimbal_enable"
+    gst_rtsp_url: "rtsp://192.168.144.10:8554/H264Video1"
+    gst_pipeline_1: " latency=0 ! rtph264depay ! h264parse ! avdec_h264 ! videoscale ! video/x-raw,"
+    gst_pipeline_2: " ! jpegenc ! rtpjpegpay !"
+    out_width: "400"
+    out_height: "200"
+    pcc_host: "11.0.0.44"
+    pcc_port: "5041"
+  front2ros:
+    type: "RTSP2ROS"
+    camera_topic: "front/compressed"
+    camera_info_topic: "front/compressed/info"
+    frame_id: "front_camera"
+    framerate: 30
+    gst_rtsp_url: "rtsp://192.168.144.10:8554/H264Video"
+    gst_pipeline_1: " latency=0 ! rtph264depay ! h264parse ! avdec_h264 ! videoconvert ! video/x-raw,"
+    gst_pipeline_2: ",format=BGRx ! videoconvert ! video/x-raw,format=BGR ! videoconvert ! videoscale ! video/x-raw,"
+    in_width: "1280"
+    in_height: "720"
+    out_width: "1280"
+    out_height: "720"
+  gimbal2ros:
+    type: "RTSP2ROS"
+    camera_topic: "gimbal/compressed"
+    camera_info_topic: "gimbal/compressed/info"
+    frame_id: "gimbal_camera"
+    framerate: 30
+    gst_rtsp_url: "rtsp://192.168.144.10:8554/H264Video1"
+    gst_pipeline_1: " latency=0 ! rtph264depay ! h264parse ! avdec_h264 ! videoconvert ! video/x-raw,"
+    gst_pipeline_2: ",format=BGRx ! videoconvert ! video/x-raw,format=BGR ! videoconvert ! videoscale ! video/x-raw,"
+    in_width: "1280"
+    in_height: "720"
+    out_width: "1280"
+    out_height: "720"

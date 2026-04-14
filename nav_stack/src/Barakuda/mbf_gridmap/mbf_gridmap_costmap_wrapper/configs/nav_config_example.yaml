@@ -1,0 +1,82 @@
+planners:
+  - name: "GlobalPlanner"
+    type: "mbf_gridmap_costmap_wrapper/WrapperGlobalPlanner"
+
+controllers:
+  - name: "TebLocalPlannerROS"
+    type: "mbf_gridmap_costmap_wrapper/WrapperLocalPlanner"
+
+recovery_behaviors: [ ]
+
+GlobalPlanner:
+  plugin_type: "global_planner/GlobalPlanner"
+
+TebLocalPlannerROS:
+  plugin_type: "teb_local_planner/TebLocalPlannerROS"
+
+planner_patience: -1.0
+planner_max_retries: 2
+
+controller_patience: 2.0
+controller_max_retries: 4
+
+robot_frame: "base_footprint"
+dist_tolerance: 0.2
+angle_tolerance: 0.8
+
+gridmap_topic: "/elevation_mapping/elevation_map_raw_gpu"
+
+global_costmap:
+  global_frame: map
+  robot_base_frame: base_link
+  update_frequency: 5.0
+  publish_frequency: 2.0
+
+  width: 100.0
+  height: 100.0
+  origin_x: -50.0
+  origin_y: -50.0
+  resolution: 0.5
+  odom_topic_name: /odometry/filtered/local
+  rolling_window: false
+
+  always_send_full_costmap: true
+
+  transform_tolerance: 0.3
+  obstacle_range: 2.5
+  max_obstacle_height: 2.0
+  raytrace_range: 3.0
+  footprint: [ [ -0.95, -0.6 ], [ -0.95, 0.6 ], [ 0.95, 0.6 ], [ 0.95, -0.6 ] ]
+  footprint_padding: 0.01
+  inflation_radius: 1.5
+  trinary_costmap: true
+  movebase_gridmap_layer:
+    enable: true
+    gridmap_layer_name: "csf_gpu"
+  plugins:
+    - { name: movebase_gridmap_layer, type: "mbf_gridmap_costmap_wrapper::MoveBaseGridMapLayer" }
+
+local_costmap:
+  global_frame: odom
+  robot_base_frame: base_link
+  update_frequency: 5.0
+  publish_frequency: 2.0
+
+  static_map: false
+  width: 15
+  height: 15
+  resolution: 0.5
+  rolling_window: true
+
+  transform_tolerance: 0.3
+  obstacle_range: 2.5
+  max_obstacle_height: 2.0
+  raytrace_range: 3.0
+  footprint: [ [ -0.95, -0.6 ], [ -0.95, 0.6 ], [ 0.95, 0.6 ], [ 0.95, -0.6 ] ]
+  footprint_padding: 0.01
+  inflation_radius: 1.7
+  movebase_gridmap_layer:
+    enable: true
+    gridmap_layer_name: "csf_gpu"
+  plugins:
+    - { name: movebase_gridmap_layer, type: "mbf_gridmap_costmap_wrapper::MoveBaseGridMapLayer" }

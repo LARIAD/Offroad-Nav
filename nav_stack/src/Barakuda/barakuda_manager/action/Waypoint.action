@@ -1,0 +1,8 @@
+# Request
+nav_msgs/Path path
+---
+# Result
+bool result
+---
+# Feedback
+uint8 current_wp

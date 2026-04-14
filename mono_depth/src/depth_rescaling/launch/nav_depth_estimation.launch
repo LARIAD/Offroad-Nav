@@ -1,0 +1,44 @@
+<launch>
+
+    <!-- <node name="depth_estimation" pkg="depth_estimation" type="depth_predictor.py" args="depth_anything_trt" output="screen"/> -->
+    <!-- <node name="depth_estimation" pkg="depth_estimation" type="depth_predictor_pc_rescaling.py" args="depth_anything_trt" output="screen"/> -->
+
+    <!-- <rosparam command="load" file="$(find depth_estimation)/config/nav_depth_estimation.yaml" /> -->
+
+    <node pkg="depth_estimation" type="depth_prediction_node.py" name="depth_estimation" output="screen">
+        <rosparam command="load" file="$(find depth_estimation)/config/nav_depth_estimation.yaml" />
+    </node>
+
+    <node pkg="depth_estimation" type="depth_rescaling_node.py" name="rescaling" output="screen">
+        <rosparam command="load" file="$(find depth_estimation)/config/nav_depth_estimation.yaml" />
+    </node>
+
+    <!-- <node pkg="depth_estimation" type="evaluation_node.py" name="evaluation" output="screen"/>
+
+    <node name="disp_visu" pkg="image_view" type="image_view">
+        <remap from="image" to="/depth_estimation/disp_visu"/>
+    </node>
+
+    <node name="im_visu" pkg="image_view" type="image_view">
+        <remap from="image" to="/image_rgb"/>
+    </node>
+
+   <node pkg="nodelet" type="nodelet" name="nodelet_manager" args="manager" output="screen"/>
+
+  <node pkg="nodelet" type="nodelet" name="nodelet1"
+        args="load depth_image_proc/point_cloud_xyz nodelet_manager" output="screen">
+    <remap from="/depth_estimation/camera_info" to="/zed2i/zed_node/rgb/camera_info_new"/>
+    <remap from="image_rect" to="/depth_estimation/depth_map"/>
+    <remap from="points" to="/depth_estimation/points"/>
+  </node>
+
+  <node pkg="nodelet" type="nodelet" name="nodelet2"
+        args="load depth_image_proc/point_cloud_xyz nodelet_manager" output="screen">
+    <remap from="camera_info" to="/zed2i/zed_node/rgb/camera_info"/>
+    <remap from="image_rect" to="/zed2i/zed_node/depth/depth_registered"/>
+    <remap from="points" to="/camera/stereo_depth/points"/>
+  </node>
+
+  <node pkg="depth_estimation" type="rosbag_sync" name="rosbag_sync" output="screen"/> -->
+
+</launch>

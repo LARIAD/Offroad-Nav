@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+
+<launch>    
+    
+    <!-- Static TF publisher, waiting for URDF -->
+    <!--<node pkg="tf" type="static_transform_publisher" name="zed_to_ouster" args="0.082 -0.033 0.075 0 1.76278 0  /camera /os_sensor  100"/>-->
+    <node pkg="tf" type="static_transform_publisher" name="zed_to_ouster" args="-0.035 0 0.125 0 1.76278 0  /camera /os_sensor  100"/>
+    <node pkg="tf" type="static_transform_publisher" name="zed_optical2" args="0.0 0 0. 1.57 0 0 /camera /optical2  100"/>
+
+    <!-- zed_calib node-->
+    <!--<node pkg="tf" type="static_transform_publisher" name="zed_calib_to_ouster" args="0.0495077 -0.117203 0.0929835 -1.5533 3.0892 2.8623  /os_sensor /zed_calib  100"/>-->
+    <!--<node pkg="tf" type="static_transform_publisher" name="zed_optical" args="0.0 0 0. 1.57 0 1.57 /zed_calib /camera   100"/>-->
+
+    <node pkg="tf" type="static_transform_publisher" name="zed_optical" args="0.0 0 0. -1.57 0 -1.57  /camera /optical  100"/>
+    <!--<node pkg="tf" type="static_transform_publisher" name="zed_opencvmerde" args="0.0 0 0. 0 1.57 0 /os_sensor /opencvmerde  100"/> -->
+    
+    <!-- 
+    <node pkg="pcl_plane_estimation" name="example" type="example" output="screen" respawn="true" >
+        <param name="cloud_pcd" type="str" value="/ouster/points" />
+    </node> -->
+
+    <!--  -->
+    <node pkg="pcl_plan_estimation" name="true_tf_node" type="true_tf_node" output="screen" respawn="true" />
+
+
+
+    <!-- Lidar point projection on the camera frame -->
+    <node pkg="barakuda_vision" type="barakuda_vision" name="barakuda_vision">
+        <rosparam command="load" file="$(find barakuda_vision)/config/barakuda_vision.yaml" />
+    </node>
+</launch>

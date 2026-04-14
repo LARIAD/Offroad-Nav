@@ -1,0 +1,8 @@
+<library path="lib/libmbf_gridmap_costmap_wrapper">
+    <class name="mbf_gridmap_costmap_wrapper/WrapperGlobalPlanner" type="mbf_gridmap_costmap_wrapper::WrapperGlobalPlanner"
+           base_class_type="mbf_gridmap_core::GridmapPlanner">
+        <description>
+            A wrapper to a nav_core BaseGlobalPlanner
+        </description>
+    </class>
+</library>

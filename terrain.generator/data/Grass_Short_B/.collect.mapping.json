@@ -1,0 +1,35 @@
+{
+    "version": "1.0",
+    "file_records": [
+        {
+            "source_url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Vegetation/Shrub/Grass_Short_B.usd",
+            "source_hash": "14b9e7ec547e3fce98aa43e0dd9ab9405cabe091",
+            "target_url": "./Grass_Short_B.usd",
+            "target_hash": "ae1dff6de5552b3a85c77f43983ae28139f7a126"
+        },
+        {
+            "source_url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Vegetation/Shrub/materials/textures/lawngrass_a_basecolor.png",
+            "source_hash": "4ea75b1d6783535b99c77bfe9f1ee97993478cb3",
+            "target_url": "./materials/textures/lawngrass_a_basecolor.png",
+            "target_hash": "c26ac7e3652a944baea93504efc2502e7dfbf164"
+        },
+        {
+            "source_url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Vegetation/Shrub/materials/textures/lawngrass_a_normal.png",
+            "source_hash": "5d9b056464c26d8dcfa74eb4204db17899accf18",
+            "target_url": "./materials/textures/lawngrass_a_normal.png",
+            "target_hash": "a12ac529b1674e816d66d4ebf005d794ca5d4f1b"
+        },
+        {
+            "source_url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Vegetation/Shrub/materials/textures/lawngrass_a_roughness.png",
+            "source_hash": "27397e84e12746a9afbee90454dbf2e1ffcee346",
+            "target_url": "./materials/textures/lawngrass_a_roughness.png",
+            "target_hash": "dbd87c0926354c3a07265fdadbd6e3dd919dc4f7"
+        },
+        {
+            "source_url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Vegetation/Shrub/materials/lawngrass_a_mat.mdl",
+            "source_hash": "9ae74a840b9f37063c9452c331d9a1f369b3cc62",
+            "target_url": "./materials/lawngrass_a_mat.mdl",
+            "target_hash": "640e828581f1dae1dc29243101f2dba135499573"
+        }
+    ]
+}

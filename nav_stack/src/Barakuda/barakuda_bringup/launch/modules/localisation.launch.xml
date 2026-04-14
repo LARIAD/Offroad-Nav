@@ -1,0 +1,61 @@
+<launch>
+    <arg name="robot_name"/>
+
+    <arg name="use_dlio_odom"/>
+    <arg name="use_dlio_mapping"/>
+
+    <arg name="dlio_pointcloud_topic"/>
+    <arg name="dlio_imu_topic"/>
+
+    <!-- DLIO Odometry Node -->
+    <node name="dlio_odom" pkg="direct_lidar_inertial_odometry" type="dlio_odom_node" output="screen" clear_params="true" if="$(arg use_dlio_odom)">
+        <!-- Load parameters -->
+        <rosparam file="$(find barakuda_bringup)/config/$(arg robot_name)/dlio_input.yaml" command="load"/>
+        <rosparam file="$(find barakuda_bringup)/config/$(arg robot_name)/dlio_params.yaml" command="load"/>
+
+        <!-- Subscriptions -->
+        <remap from="~pointcloud" to="$(arg dlio_pointcloud_topic)"/>
+        <remap from="~imu" to="$(arg dlio_imu_topic)"/>
+
+        <!-- Publications -->
+        <remap from="~odom" to="dlio/odom_node/odom"/>
+        <remap from="~pose" to="dlio/odom_node/pose"/>
+        <remap from="~path" to="dlio/odom_node/path"/>
+        <remap from="~kf_pose" to="dlio/odom_node/keyframes"/>
+        <remap from="~kf_cloud" to="dlio/odom_node/pointcloud/keyframe"/>
+        <remap from="~deskewed" to="dlio/odom_node/pointcloud/deskewed"/>
+    </node>
+
+    <!-- DLIO Mapping Node -->
+    <node name="dlio_map" pkg="direct_lidar_inertial_odometry" type="dlio_map_node" output="screen" clear_params="true" if="$(arg use_dlio_mapping)">
+        <!-- Load parameters -->
+        <rosparam file="$(find barakuda_bringup)/config/$(arg robot_name)/dlio_input.yaml" command="load"/>
+        <rosparam file="$(find barakuda_bringup)/config/$(arg robot_name)/dlio_params.yaml" command="load"/>
+
+        <!-- Subscriptions -->
+        <remap from="~keyframes" to="dlio/odom_node/pointcloud/keyframe"/>
+
+        <!-- Publications -->
+        <remap from="~map" to="dlio/map_node/map"/>
+    </node>
+
+    <!-- Robot localisation -->
+    <!-- robot_localization EKF node for the odom frame -->
+    <node pkg="robot_localization" type="ekf_localization_node" name="robot_localization_ekf_node_odom" output="screen">
+        <rosparam file="$(find barakuda_bringup)/config/$(arg robot_name)/robot_localisation_local.yaml" command="load"/>
+        <remap from="odometry/filtered" to="odometry/filtered/local"/>
+    </node>
+
+    <!-- robot_localization EKF node for the map frame -->
+    <node pkg="robot_localization" type="ekf_localization_node" name="robot_localization_ekf_node_map" output="screen">
+        <rosparam file="$(find barakuda_bringup)/config/$(arg robot_name)/robot_localisation_global.yaml" command="load"/>
+        <remap from="odometry/filtered" to="odometry/filtered/global"/>
+    </node>
+
+    <node pkg="robot_localization" type="navsat_transform_node" name="navsat_transform_node" respawn="true">
+        <rosparam file="$(find barakuda_bringup)/config/$(arg robot_name)/navsat_transform.yaml" command="load"/>
+        <remap from="/imu/data" to="imu/hdt"/>
+        <remap from="/gps/fix" to="imu/nav_sat_fix"/>
+        <remap from="/odometry/filtered" to="odometry/filtered/global"/>
+    </node>
+</launch>

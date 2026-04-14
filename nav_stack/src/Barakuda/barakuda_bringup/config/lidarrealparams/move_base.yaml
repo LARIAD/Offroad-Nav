@@ -1,0 +1,30 @@
+# controller_frequency should be set in the launch file associated with the robot
+
+planners:
+  - name: "GlobalPlanner"
+    type: "mbf_gridmap_costmap_wrapper/WrapperGlobalPlanner"
+
+controllers:
+  - name: "TebLocalPlannerROS"
+    type: "mbf_gridmap_costmap_wrapper/WrapperLocalPlanner"
+
+recovery_behaviors: [ ]
+
+GlobalPlanner:
+  plugin_type: "global_planner/GlobalPlanner"
+
+TebLocalPlannerROS:
+  plugin_type: "teb_local_planner/TebLocalPlannerROS"
+
+planner_frequency: 1.0
+planner_patience: -1.0
+planner_max_retries: 2
+
+controller_patience: 2.0
+controller_max_retries: 4
+
+robot_frame: "base_link"
+dist_tolerance: 1.5
+angle_tolerance: 1.0
+
+gridmap_topic: "/elevation_mapping/elevation_map_raw_gpu"

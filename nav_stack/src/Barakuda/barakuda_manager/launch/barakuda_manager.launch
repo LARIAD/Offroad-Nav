@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<launch>
+
+    <!-- BARAKUDA STATE MANAGER-->
+    <node pkg="barakuda_manager" type="barakuda_manager" name="barakuda_manager" output="screen"  respawn="true"> 
+        <rosparam command="load" file="$(find barakuda_manager)/config/barakuda_manager.yaml" />
+    </node>
+
+    <!-- WAYPOINT MANAGER-->
+    <node pkg="waypoint_manager" type="waypoint_manager" name="waypoint_manager" output="screen"  respawn="true"> 
+    </node>
+</launch>

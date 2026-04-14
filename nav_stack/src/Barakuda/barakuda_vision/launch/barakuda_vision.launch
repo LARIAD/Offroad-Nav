@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+
+<launch>
+    <node pkg="barakuda_vision" type="barakuda_vision" name="barakuda_vision">
+        <rosparam command="load" file="$(find barakuda_vision)/config/barakuda_vision.yaml" />
+    </node>
+</launch>

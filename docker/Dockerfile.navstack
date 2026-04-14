@@ -1,0 +1,199 @@
+# Copyright (c) 2022, NVIDIA CORPORATION.  All rights reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+ARG DEBIAN_FRONTEND=noninteractive
+ARG ISAACSIM_VERSION=4.5.0
+
+# https://catalog.ngc.nvidia.com/orgs/nvidia/containers/isaac-sim
+# FROM nvcr.io/nvidia/isaac-sim:4.5.0 AS isaac-sim
+
+FROM nvidia/cuda:11.6.2-cudnn8-devel-ubuntu20.04
+
+# Set noninteractive mode for apt-get
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Preconfigure tzdata
+RUN echo "Etc/UTC" > /etc/timezone && \
+    ln -fs /usr/share/zoneinfo/Etc/UTC /etc/localtime && \
+    apt-get update && apt-get install -y tzdata && \
+    dpkg-reconfigure --frontend noninteractive tzdata
+
+# Install build essentials
+RUN apt update \
+&& apt install --no-install-recommends -y build-essential git tmux \
+&& apt clean autoclean \
+&& rm -rf /var/lib/apt/lists/*
+
+# Install Python
+RUN apt update \
+&& apt install --no-install-recommends -y python3.8 \
+    python3-venv \
+    python3-setuptools \
+    python3-wheel \
+    python3-dev \
+    python3-pip \
+&& apt clean autoclean \
+&& rm -rf /var/lib/apt/lists/*
+RUN pip3 install --upgrade pip wheel && pip3 install "setuptools<60"
+
+# Install ROS
+RUN apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
+RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu focal main" > /etc/apt/sources.list.d/ros-latest.list'
+
+RUN apt update \
+&& apt install -y --no-install-recommends ros-noetic-desktop-full \
+&& apt clean autoclean \
+&& rm -rf /var/lib/apt/lists/*
+RUN pip3 install catkin-tools
+
+# Set up ROS environment
+RUN echo "source /opt/ros/noetic/setup.bash" >> /root/.bashrc
+ENV ROS_DISTRO=noetic
+ENV PYTHONPATH=/opt/ros/noetic/lib/python3/dist-packages
+
+# Install PyTorch 
+COPY ./docker/requirements.txt /tmp/requirements.txt
+RUN pip3 install -r /tmp/requirements.txt
+RUN pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+
+# Install other Python packages
+RUN pip3 install cupy-cuda11x scikit-learn
+RUN pip3 install 'git+https://github.com/facebookresearch/detectron2.git'
+RUN pip3 install simple_parsing
+
+# Remove pip-installed cffi so the system _cffi_backend (matching version) is used,
+# otherwise rostopic/rosbag fail with a cffi version mismatch.
+RUN pip3 uninstall -y cffi
+
+# Install additional system dependencies needed for Isaac Sim
+RUN apt update && apt install -y --no-install-recommends \
+    libatomic1 \
+    libegl1 \
+    libglu1-mesa \
+    libgomp1 \
+    libsm6 \
+    libxi6 \
+    libxrandr2 \
+    libxt6 \
+    libfreetype-dev \
+    libfontconfig1 \
+    openssl \
+    libssl1.1 \
+    wget \
+    vulkan-utils \
+    vulkan-tools \
+    mesa-vulkan-drivers \
+    curl \
+    gnupg2 \
+    lsb-release \
+    software-properties-common \
+&& apt clean autoclean \
+&& rm -rf /var/lib/apt/lists/*
+
+# Install ROS packages
+RUN apt update \
+&& apt install -y \
+    ros-noetic-pybind11-catkin \
+    ros-noetic-grid-map \
+    ros-noetic-grid-map-core \
+    ros-noetic-grid-map-msgs \
+    ros-noetic-grid-map-ros \
+    ros-noetic-grid-map-rviz-plugin \
+    ros-noetic-grid-map-sdf \
+    ros-noetic-nmea-msgs \
+    libspdlog-dev \
+    libasio-dev \
+    nlohmann-json3-dev \
+    libgstreamer1.0-dev \
+    libgstreamer-plugins-base1.0-dev \
+    libgstrtspserver-1.0-dev \
+    libopencv-dev \
+    libeigen3-dev \
+    libgmp-dev \
+    libmpfr-dev \
+    libboost-all-dev \
+    ros-noetic-ros-numpy \
+    ros-noetic-geographic-msgs \
+    libgeographic-dev \
+    ros-noetic-move-base-msgs \
+    ros-noetic-rtcm-msgs \
+    ros-noetic-base-local-planner \
+    ros-noetic-costmap-converter \
+    ros-noetic-mbf-costmap-core \
+    ros-noetic-mbf-abstract-core \
+    ros-noetic-mbf-msgs \
+    ros-noetic-move-base-flex \
+    libsuitesparse-dev \
+    ros-noetic-libg2o \
+    ros-noetic-grid-map-costmap-2d \
+    ros-noetic-clear-costmap-recovery \
+    ros-noetic-navfn \
+    ros-noetic-global-planner \
+    ros-noetic-carrot-planner \
+    ros-noetic-rotate-recovery \
+    libcgal-dev \
+    libcgal-qt5-dev \
+&& apt clean autoclean \
+&& rm -rf /var/lib/apt/lists/*
+
+# Install CSF
+RUN git clone https://github.com/jianboqi/CSF.git /opt/csf \
+&&  cd /opt/csf \
+&&  git checkout 5527b5953626d2322fd1a5e118b964b993f0cc7a && \
+    mkdir build && \
+    cd build && \
+    cmake .. && \
+    make && \
+    make install && \
+    cd .. && \
+    sed -i "s#>=2.0.0rc1##" pyproject.toml && \
+    python3 -m pip install --upgrade pip && \
+    pip install -q build && \
+    python3 -m build && \
+    pip install dist/cloth_simulation_filter-1.1.5-cp38-cp38-linux*.whl
+
+# Install Vulkan SDK
+ARG VULKAN_SDK_VERSION=1.4.321.1
+RUN wget -q --show-progress \
+    --progress=bar:force:noscroll \
+    https://sdk.lunarg.com/sdk/download/${VULKAN_SDK_VERSION}/linux/vulkansdk-linux-x86_64-${VULKAN_SDK_VERSION}.tar.xz \
+    -O /tmp/vulkansdk-linux-x86_64-${VULKAN_SDK_VERSION}.tar.xz \ 
+    && echo "Installing Vulkan SDK ${VULKAN_SDK_VERSION}" \
+    && mkdir -p /opt/vulkan \
+    && tar -xf /tmp/vulkansdk-linux-x86_64-${VULKAN_SDK_VERSION}.tar.xz -C /opt/vulkan \
+    && mkdir -p /usr/local/include/ && cp -ra /opt/vulkan/${VULKAN_SDK_VERSION}/x86_64/include/* /usr/local/include/ \
+    && mkdir -p /usr/local/lib && cp -ra /opt/vulkan/${VULKAN_SDK_VERSION}/x86_64/lib/* /usr/local/lib/ \
+    && cp -a /opt/vulkan/${VULKAN_SDK_VERSION}/x86_64/lib/libVkLayer_*.so /usr/local/lib \
+    && mkdir -p /usr/local/share/vulkan/explicit_layer.d \
+    && cp /opt/vulkan/${VULKAN_SDK_VERSION}/x86_64/share/vulkan/explicit_layer.d/VkLayer_*.json /usr/local/share/vulkan/explicit_layer.d \
+    && mkdir -p /usr/local/share/vulkan/registry \
+    && cp -a /opt/vulkan/${VULKAN_SDK_VERSION}/x86_64/share/vulkan/registry/* /usr/local/share/vulkan/registry \
+    && cp -a /opt/vulkan/${VULKAN_SDK_VERSION}/x86_64/bin/* /usr/local/bin \
+    && rm /tmp/vulkansdk-linux-x86_64-${VULKAN_SDK_VERSION}.tar.xz
+
+RUN ldconfig
+
+# Set Vulkan environment variables
+ENV VK_ICD_FILENAMES=/etc/vulkan/icd.d/nvidia_icd.json
+ENV NVIDIA_DRIVER_CAPABILITIES=all
+ENV NVIDIA_VISIBLE_DEVICES=all
+
+WORKDIR /workspace
+
+COPY ./docker/entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+# Default entrypoint
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+CMD ["/bin/bash", "-l"]

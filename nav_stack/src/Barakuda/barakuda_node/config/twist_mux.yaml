@@ -1,0 +1,18 @@
+topics:
+- name    : joy
+  topic   : joy_vel
+  timeout : 0.5
+  priority: 30
+- name    : navigation
+  topic   : nav_vel
+  timeout : 0.5
+  priority: 20
+- name    : iddle
+  topic   : null_vel
+  timeout : 0.5
+  priority: 1
+locks:
+- name    : e_stop
+  topic   : e_stop
+  timeout : 0.0
+  priority: 255

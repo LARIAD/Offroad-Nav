@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="barakuda">
+    <!-- Xacro Arg -->
+    <xacro:arg name="robot_model_config" default="$(find barakuda_description)/config/urdf_example.yaml"/>
+
+    <!-- Load external param -->
+    <xacro:property name="prop_robot_model_config" value="$(arg robot_model_config)"/>
+    <xacro:property name="param" value="${xacro.load_yaml(prop_robot_model_config)}"/>
+
+    <!-- Barakuda chassis and wheels -->
+    <xacro:include filename="$(find barakuda_description)/urdf/structure/shark_barakuda.urdf.xacro"/>
+
+    <!-- U2IS structure -->
+    <xacro:if value="${param['use_struct_u2is']}">
+        <xacro:include filename="$(find barakuda_description)/urdf/structure/u2is_structure.urdf.xacro"/>
+        <xacro:u2is_struct name="u2is_struct" parent="top_plate_link">
+            <origin xyz="0 0 0.0225" rpy="0 0 0"/>
+        </xacro:u2is_struct>
+    </xacro:if>
+
+    <!-- Legacy U2IS structure -->
+    <xacro:if value="${param['use_struct_legacy_u2is']}">
+        <xacro:include filename="$(find barakuda_description)/urdf/structure/legacy_u2is_structure.urdf.xacro"/>
+        <xacro:u2is_struct_all_sensor name="u2is_struct_all_sensor" parent="top_plate_link"/>
+    </xacro:if>
+</robot>

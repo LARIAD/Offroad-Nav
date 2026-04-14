@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="robot_name"/>
+
+    <arg name="barakuda_controller_frequency"/>
+    <arg name="respawn_delay"/>
+
+    <!-- ROSbridge server-->
+    <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch"/>
+
+    <!-- RTP stream -->
+    <node pkg="video_gstreamer_ros" type="video_gstreamer_ros" name="video_gstreamer_ros" output="screen"
+          args="--log-level=INFO" respawn="true" respawn_delay="$(arg respawn_delay)">
+        <rosparam command="load" file="$(find barakuda_bringup)/config/$(arg robot_name)/rtp.yaml"/>
+    </node>
+
+    <!-- Waypoint manager -->
+    <node pkg="waypoint_manager" type="waypoint_manager" name="waypoint_manager" output="screen" respawn="true" respawn_delay="$(arg respawn_delay)">
+        <rosparam command="load" file="$(find barakuda_bringup)/config/$(arg robot_name)/waypoint_manager.yml"/>
+    </node>
+
+    <!-- Barakuda manager -->
+    <node pkg="barakuda_manager" type="barakuda_manager" name="barakuda_manager" output="screen" respawn="true" respawn_delay="$(arg respawn_delay)">
+        <rosparam command="load" file="$(find barakuda_bringup)/config/$(arg robot_name)/barakuda_manager.yaml"/>
+        <rosparam command="load" file="$(find barakuda_bringup)/config/$(arg robot_name)/rtp.yaml"/>
+    </node>
+
+    <!-- Barakuda joy -->
+    <node name="barakuda_joy" pkg="barakuda_node" type="barakuda_joy.py" output="screen" respawn="true" respawn_delay="$(arg respawn_delay)">
+    </node>
+
+    <!-- Barakuda base -->
+    <node name="barakuda_driver" pkg="barakuda_node" type="barakuda_driver_node" output="screen" respawn="true" respawn_delay="$(arg respawn_delay)">
+        <rosparam command="load" file="$(find barakuda_bringup)/config/$(arg robot_name)/barakuda_driver.yaml"/>
+    </node>
+
+    <!-- Twist Multiplexer -->
+    <node pkg="twist_mux" type="twist_mux" name="twist_mux" respawn="true" respawn_delay="$(arg respawn_delay)">
+        <rosparam command="load" file="$(find barakuda_bringup)/config/$(arg robot_name)/twist_mux.yaml"/>
+        <remap from="cmd_vel_out" to="cmd_vel"/>
+    </node>
+</launch>

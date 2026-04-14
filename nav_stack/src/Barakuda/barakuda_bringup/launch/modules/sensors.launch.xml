@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="robot_name"/>
+    <arg name="robot_model"/>
+    <arg name="robot_model_config"/>
+
+    <arg name="use_ptz"/>
+
+    <arg name="respawn_delay"/>
+    <arg name="joint_state_gui"/>
+    <arg name="joint_state_publisher"/>
+
+    <arg name="zed_camera_name"/>
+    <arg name="zed_camera_model"/>
+
+    <!-- ROBOT Description-->
+    <include file="$(find barakuda_description)/launch/barakuda_description.launch">
+        <arg name="robot_model" value="$(arg robot_model)"/>
+        <arg name="robot_model_config" value="$(arg robot_model_config)"/>
+
+        <arg name="joint_state_publisher" value="$(arg joint_state_publisher)"/>
+        <arg name="joint_state_gui" value="$(arg joint_state_gui)"/>
+    </include>
+
+    <!-- Ouster -->
+    <include file="$(find ouster_ros)/launch/driver.launch">
+        <arg name="sensor_hostname" value="169.254.105.202"/>
+        <arg name="viz" value="false"/>
+        <arg name="proc_mask" value="PCL|IMU"/>
+        <arg name="lidar_mode" value="512x20"/>
+        <arg name="timestamp_mode" value="TIME_FROM_ROS_TIME"/>
+        <arg name="udp_profile_lidar" value="RNG19_RFL8_SIG16_NIR16_DUAL"/>
+    </include>
+
+    <!-- Zed camera node -->
+    <param name="$(arg zed_camera_name)_description"
+           command="$(find xacro)/xacro '$(find zed_wrapper)/urdf/zed_descr.urdf.xacro'
+                        camera_name:=$(arg zed_camera_name)
+                        camera_model:=$(arg zed_camera_model)
+                        base_frame:=struct_zed_connector_link
+                        cam_pos_x:=0
+                        cam_pos_y:=0
+                        cam_pos_z:=0
+                        cam_roll:=0
+                        cam_pitch:=0
+                        cam_yaw:=0"
+    />
+    <node name="$(arg zed_camera_name)_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output="screen" required="true" respawn_delay="$(arg respawn_delay)">
+        <remap from="robot_description" to="$(arg zed_camera_name)_description"/>
+    </node>
+    <node name="$(arg zed_camera_name)_node" pkg="zed_wrapper" type="zed_wrapper_node" output="screen" respawn="true" respawn_delay="$(arg respawn_delay)">
+        <rosparam file="$(find barakuda_bringup)/config/$(arg robot_name)/zed.yaml" command="load"/>
+        <param name="general/camera_name" value="$(arg zed_camera_name)"/>
+        <param name="general/camera_model" value="$(arg zed_camera_model)"/>
+    </node>
+
+    <!-- RTK Publicher /!\ Need internet connection -->
+    <node name="ntrip_client_node" pkg="ntrip_client" type="ntrip_client.py" output="screen">
+        <rosparam file="$(find barakuda_bringup)/config/$(arg robot_name)/ntrip.yaml" command="load"/>
+    </node>
+
+    <!-- IMU Driver-->
+    <node name="sbg_ellipseD" pkg="sbg_driver" type="sbg_device" output="screen" respawn="true" respawn_delay="$(arg respawn_delay)">
+        <rosparam command="load" file="$(find barakuda_bringup)/config/$(arg robot_name)/sbg.yaml"/>
+    </node>
+
+    <!-- PTZ camera -->
+    <group if="$(arg use_ptz)">
+        <node pkg="axis_camera" type="axis_camera_node" name="axis">
+            <rosparam command="load" file="$(find barakuda_bringup)/config/$(arg robot_name)/ptz.yaml"/>
+        </node>
+    </group>
+</launch>

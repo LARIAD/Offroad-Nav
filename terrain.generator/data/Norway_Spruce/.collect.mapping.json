@@ -1,0 +1,77 @@
+{
+    "version": "1.0",
+    "file_records": [
+        {
+            "source_url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Vegetation/Trees/Norway_Spruce.usd",
+            "source_hash": "52799041c47d0d73e35d83643a7a678cf480fed6",
+            "target_url": "./Norway_Spruce.usd",
+            "target_hash": "8256e55879f1664df2184b4bfb7337052a3aafaa"
+        },
+        {
+            "source_url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Vegetation/Trees/materials/sprucebark_mat.mdl",
+            "source_hash": "4b168371c3f435b5babcbe98e84147284fa9beca",
+            "target_url": "./materials/sprucebark_mat.mdl",
+            "target_hash": "f33900db8618126c4c143c811ea46fa02d777660"
+        },
+        {
+            "source_url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Vegetation/Trees/materials/spruceneedles_v1_mat.mdl",
+            "source_hash": "e1ccece9761a6ac1b6bae990ed620bd22f88cf77",
+            "target_url": "./materials/spruceneedles_v1_mat.mdl",
+            "target_hash": "b06ecabcb7ee09c5c74b2d87b12e306b87b9d97b"
+        },
+        {
+            "source_url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Vegetation/Trees/materials/spruceneedles_v2_mat.mdl",
+            "source_hash": "84c297e9191c885fa283af006064c9d41704beb6",
+            "target_url": "./materials/spruceneedles_v2_mat.mdl",
+            "target_hash": "8ff0338c82fc28b4fd80a2b3a75cded26acb9ff9"
+        },
+        {
+            "source_url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Vegetation/Trees/materials/spruceneedles_v3_mat.mdl",
+            "source_hash": "8dfa39ac9f1b16a145f7e42e0fa3fde7a0e23d76",
+            "target_url": "./materials/spruceneedles_v3_mat.mdl",
+            "target_hash": "06b54a2e95a040311fc2a56ee97f0e16f04a6a17"
+        },
+        {
+            "source_url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Vegetation/Trees/materials/spruceneedles_v4_mat.mdl",
+            "source_hash": "5647e7892334fe63d7373714e683de48d016622c",
+            "target_url": "./materials/spruceneedles_v4_mat.mdl",
+            "target_hash": "2f1b2c21521c8895f272f221fc83a0d37c913958"
+        },
+        {
+            "source_url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Vegetation/Trees/materials/textures/spruceneedles_basecolor.png",
+            "source_hash": "8df0dc5b16ad315d7bad5d01f9d6e60289976a41",
+            "target_url": "./materials/textures/spruceneedles_basecolor.png",
+            "target_hash": "ccb61d70a45dbfb2f577561c99281a8f95f82557"
+        },
+        {
+            "source_url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Vegetation/Trees/materials/textures/spruceneedles_roughness.png",
+            "source_hash": "414d9c4338019759887786477d91cd6858978a3c",
+            "target_url": "./materials/textures/spruceneedles_roughness.png",
+            "target_hash": "4797302acec08b78d476932af9e7f605e70370bf"
+        },
+        {
+            "source_url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Vegetation/Trees/materials/textures/spruceneedles_normal.png",
+            "source_hash": "c05cd9947ffa225737070954a1c9e6cc0902822b",
+            "target_url": "./materials/textures/spruceneedles_normal.png",
+            "target_hash": "0431e6acb20df33ab5e1b619888a1512616addd4"
+        },
+        {
+            "source_url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Vegetation/Trees/materials/textures/alter49_tree7_basecolor.png",
+            "source_hash": "30b99ad162fe5ee402b1adde0e5f8a193ed7e56f",
+            "target_url": "./materials/textures/alter49_tree7_basecolor.png",
+            "target_hash": "98334f5e248d146156e35e33095420caefae0df5"
+        },
+        {
+            "source_url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Vegetation/Trees/materials/textures/alter49_tree7_roughness.png",
+            "source_hash": "9460efd4981b728cf50f19dd7e5d9ff6b0eedeb8",
+            "target_url": "./materials/textures/alter49_tree7_roughness.png",
+            "target_hash": "f0b7b51b41b04e4fc95b572f56ca23d4423cd0f9"
+        },
+        {
+            "source_url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Vegetation/Trees/materials/textures/alter49_tree7_normal.png",
+            "source_hash": "0e564dcc822021c1667a58d0095af798e87bfbf2",
+            "target_url": "./materials/textures/alter49_tree7_normal.png",
+            "target_hash": "be974e277201c5b5984fbf9a8850d86a54e78b16"
+        }
+    ]
+}

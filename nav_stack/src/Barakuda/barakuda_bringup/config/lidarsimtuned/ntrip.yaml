@@ -1,0 +1,11 @@
+server: caster.centipede.fr
+port: 2101
+# Stations aux alentours de Palaiseau: EVCC CDFX LNE1
+# Stations aux alentours de Bourges: FLO18 GRBS BK18
+mountpoint: CDFX
+username: centipede
+password: centipede
+topic: /ntrip_client/rtcm
+utm_zone: 31
+is_south: false
+UTM_frame_id: utm

@@ -1,0 +1,34 @@
+image_topic: /cam2/rgb
+cam_info_topic: /cam2/camera_info
+
+model: Depth_AnythingV2
+engine_path: vits # 'vits', 'vitb' or 'vitl'
+
+# model: Depth_AnythingHF
+# engine_path: depth-anything/Depth-Anything-V2-Small-hf
+
+# model: DepthAnythingTRT
+# engine_path: /workspace/barakuda_isaac_sim/mono_depth_ws/src/depth_rescaling/src/depth_estimation/depth_models/depth_anything_trt/trt_engines/depth_anything_v2_vits_364_644_fp16.trt
+
+# model: Metric3DONNX
+# engine_path: /workspace/my_catkin_ws/src/Metric3D/metric3d_vit_small_364_644.onnx
+
+# ref_name: VINS-Mono
+# ref_name: VINS-Mono
+# ref_topic: /vins_estimator/point_cloud
+
+# ref_name: stereo
+# ref_topic: /stereo_pcl
+
+ref_name: stereo
+ref_topic: /cam2/disp
+
+use_offset: true
+smoothing_factor: 0.8
+max_depth_rescaling: 20.
+
+eval_name: stereo
+eval_topic: /zed2i/zed_node/depth/depth_registered_new
+max_depth_eval: 20.
+
+max_depth_pcl: 5.

@@ -1,0 +1,12 @@
+diff --git a/elevation_mapping_cupy/script/elevation_mapping_cupy/parameter.py b/elevation_mapping_cupy/script/elevation_mapping_cupy/parameter.py
+index 64edbf4..fc2afd9 100644
+--- a/elevation_mapping_cupy/script/elevation_mapping_cupy/parameter.py
++++ b/elevation_mapping_cupy/script/elevation_mapping_cupy/parameter.py
+@@ -155,6 +155,7 @@ class Parameter(Serializable):
+             "pointcloud_class_bayesian",
+             "pointcloud_class_max",
+             "pointcloud_color",
++            "csf_segmentation",
+         ]
+     )  # list of fusion algorithms
+     pointcloud_channel_fusions: dict = field(default_factory=lambda: {"rgb": "color", "default": "class_average"})  # fusion for pointcloud channels

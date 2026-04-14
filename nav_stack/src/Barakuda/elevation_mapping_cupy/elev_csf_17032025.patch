@@ -1,0 +1,130 @@
+diff --git a/docs/source/python/elevation_mapping.rst b/docs/source/python/elevation_mapping.rst
+index 03bb1e2..1ca3bdc 100644
+--- a/docs/source/python/elevation_mapping.rst
++++ b/docs/source/python/elevation_mapping.rst
+@@ -23,7 +23,7 @@ Elevation mapping cupy
+     :undoc-members:
+     :show-inheritance:
+ 
+-.. automodule:: elevation_mapping_cupy.fusion
++.. automodule:: 
+     :members:
+     :undoc-members:
+     :show-inheritance:
+diff --git a/elevation_mapping_cupy/CMakeLists.txt b/elevation_mapping_cupy/CMakeLists.txt
+index bc4cf6a..4859343 100644
+--- a/elevation_mapping_cupy/CMakeLists.txt
++++ b/elevation_mapping_cupy/CMakeLists.txt
+@@ -69,6 +69,7 @@ target_link_libraries(elevation_mapping_node elevation_mapping_ros)
+ 
+ catkin_python_setup()
+ 
++
+ install(
+   TARGETS elevation_mapping_ros elevation_mapping_node
+   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+diff --git a/elevation_mapping_cupy/config/core/test_core_param.yaml b/elevation_mapping_cupy/config/core/test_core_param.yaml
+index 8bbdb27..b703ce5 100644
+--- a/elevation_mapping_cupy/config/core/test_core_param.yaml
++++ b/elevation_mapping_cupy/config/core/test_core_param.yaml
+@@ -40,9 +40,9 @@ max_unsafe_n: 10                                # if the number of cells under s
+ overlap_clear_range_xy: 20.0                     # xy range [m] for clearing overlapped area. this defines the valid area for overlap clearance. (used for multi floor setting)
+ overlap_clear_range_z: 2.0                      # z range [m] for clearing overlapped area. cells outside this range will be cleared. (used for multi floor setting)
+ 
+-map_frame: 'proj_plan' #'map'                               # The map frame where the odometry source uses.
++map_frame: 'os_sensor' #'map'                               # The map frame where the odometry source uses.
+ base_frame: 'os_sensor'                              # The robot's base frame. This frame will be a center of the map.
+-corrected_map_frame: 'proj_plan'
++corrected_map_frame: 'os_sensor'
+ 
+ #### Feature toggles ########
+ enable_edge_sharpen: false #true
+@@ -62,7 +62,7 @@ use_only_above_for_upper_bound: false
+ 
+ #### Initializer ########
+ initialize_method: 'cubic'                                         # Choose one from 'nearest', 'linear', 'cubic'
+-initialize_frame_id: ['proj_plan'] #'map']   # One tf (like ['footprint'] ) initializes a square around it.
++initialize_frame_id: ['os_sensor'] #'map']   # One tf (like ['footprint'] ) initializes a square around it.
+ initialize_tf_offset: [0.0, 0.0, 0.0, 0.0]                          # z direction. Should be same number as initialize_frame_id.
+ dilation_size_initialize: 2                                         # dilation size after the init.
+ initialize_tf_grid_size: 0.5                                        # This is not used if number of tf is more than 3.
+diff --git a/elevation_mapping_cupy/config/core/test_example_setup.yaml b/elevation_mapping_cupy/config/core/test_example_setup.yaml
+index 775e88a..bf3b20b 100644
+--- a/elevation_mapping_cupy/config/core/test_example_setup.yaml
++++ b/elevation_mapping_cupy/config/core/test_example_setup.yaml
+@@ -3,8 +3,11 @@ plugin_config_file: '$(rospack find elevation_mapping_cupy)/config/core/plugin_c
+ 
+ #### Channel Fusions ########
+ pointcloud_channel_fusions:
+-  rgb: 'color'                # 'color' fusion is used for the 'rgb' channel
+-  default: 'average'          # 'average' fusion is used for channels not listed here
++  #rgb: 'color'
++  x: 'x'
++  y: 'y'
++  z: 'z'                # 'color' fusion is used for the 'rgb' channel
++  default: 'csf_segmentation'          # 'average' fusion is used for channels not listed here
+ 
+ image_channel_fusions:
+   rgb: 'color'                # 'color' fusion is used for the 'rgb' channel
+diff --git a/elevation_mapping_cupy/script/elevation_mapping_cupy/fusion/__init__.py b/elevation_mapping_cupy/script/elevation_mapping_cupy/fusion/__init__.py
+index e69de29..cc1c0ff 100644
+--- a/elevation_mapping_cupy/script/elevation_mapping_cupy/fusion/__init__.py
++++ b/elevation_mapping_cupy/script/elevation_mapping_cupy/fusion/__init__.py
+@@ -0,0 +1 @@
++from .pointcloud_csf_segmentation import *
+\ No newline at end of file
+diff --git a/elevation_mapping_cupy/script/elevation_mapping_cupy/fusion/fusion_manager.py b/elevation_mapping_cupy/script/elevation_mapping_cupy/fusion/fusion_manager.py
+index aca34a6..2d8a5ee 100644
+--- a/elevation_mapping_cupy/script/elevation_mapping_cupy/fusion/fusion_manager.py
++++ b/elevation_mapping_cupy/script/elevation_mapping_cupy/fusion/fusion_manager.py
+@@ -71,6 +71,7 @@ class FusionManager(object):
+         """
+         Execute a registered fusion plugin
+         """
++        print("plugin call: ",name)
+         idx = self.get_plugin_idx(name, "pointcloud")
+         if idx is not None:
+             self.plugins[idx](
+diff --git a/elevation_mapping_cupy/script/elevation_mapping_cupy/parameter.py b/elevation_mapping_cupy/script/elevation_mapping_cupy/parameter.py
+index 64edbf4..3dd97bc 100644
+--- a/elevation_mapping_cupy/script/elevation_mapping_cupy/parameter.py
++++ b/elevation_mapping_cupy/script/elevation_mapping_cupy/parameter.py
+@@ -155,9 +155,10 @@ class Parameter(Serializable):
+             "pointcloud_class_bayesian",
+             "pointcloud_class_max",
+             "pointcloud_color",
++            "pointcloud_csf_segmentation",
+         ]
+     )  # list of fusion algorithms
+-    pointcloud_channel_fusions: dict = field(default_factory=lambda: {"rgb": "color", "default": "class_average"})  # fusion for pointcloud channels
++    pointcloud_channel_fusions: dict = field(default_factory=lambda: {"rgb": "color", "default": "csf_segmentation"})  # fusion for pointcloud channels
+     image_channel_fusions: dict = field(default_factory=lambda: {"rgb": "color", "default": "exponential"})  # fusion for image channels
+     data_type: str = np.float32  # data type for the map
+     average_weight: float = 0.5  # weight for the average fusion
+diff --git a/elevation_mapping_cupy/script/elevation_mapping_cupy/semantic_map.py b/elevation_mapping_cupy/script/elevation_mapping_cupy/semantic_map.py
+index a06b736..025bead 100644
+--- a/elevation_mapping_cupy/script/elevation_mapping_cupy/semantic_map.py
++++ b/elevation_mapping_cupy/script/elevation_mapping_cupy/semantic_map.py
+@@ -241,7 +241,9 @@ class SemanticMap:
+ 
+         # Resetting new_map for the layers that are to be deleted
+         self.new_map[self.delete_new_layers] = 0.0
++        
+         for fusion in list(set(additional_fusion)):
++            
+             # which layers need to be updated with this fusion algorithm
+             pcl_ids, layer_ids = self.get_indices_fusion(process_channels, fusion, self.layer_specs_points)
+             # update the layers with the fusion algorithm
+diff --git a/elevation_mapping_cupy/setup.py b/elevation_mapping_cupy/setup.py
+index 8d5a249..11fb546 100644
+--- a/elevation_mapping_cupy/setup.py
++++ b/elevation_mapping_cupy/setup.py
+@@ -2,7 +2,7 @@ from distutils.core import setup
+ from catkin_pkg.python_setup import generate_distutils_setup
+ 
+ setup_args = generate_distutils_setup(
+-    packages=["elevation_mapping_cupy", "elevation_mapping_cupy.plugins",], package_dir={"": "script"},
++    packages=["elevation_mapping_cupy", "elevation_mapping_cupy.plugins", "elevation_mapping_cupy.fusion"], package_dir={"": "script"},
+ )
+ 
+ setup(**setup_args)

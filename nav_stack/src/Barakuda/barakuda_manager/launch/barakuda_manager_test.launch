@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<launch>
+
+    <!-- BARAKUDA STATE MANAGER-->
+    <node pkg="barakuda_manager" type="barakuda_manager" name="barakuda_manager" output="screen"  respawn="true"> 
+        <rosparam command="load" file="$(find barakuda_manager)/config/barakuda_manager.yaml" />
+    </node>
+
+    <!-- WAYPOINT MANAGER-->
+    <node pkg="waypoint_manager" type="waypoint_manager" name="waypoint_manager" output="screen"  respawn="true"> 
+    </node>
+
+    <!-- MOVE BASE -->
+    <node pkg="move_base" type="move_base" name="move_base" output="screen"  respawn="true"> 
+    </node>
+
+    <!--
+
+    <node pkg="tf" type="static_transform_publisher" name="map_odom" args="0 0 0 0 0 0 1 map odom 100"/>
+
+    <node pkg="tf" type="static_transform_publisher" name="odom_base_link" args="0 0 0 0 0 0 1 odom base_link 100"/>
+-->
+    <!-- <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch"/> -->
+</launch>

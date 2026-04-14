@@ -1,0 +1,15 @@
+planner_frequency: 5.0
+
+# Global Planner Configuration
+base_global_planner: "global_planner/GlobalPlanner"
+
+GlobalPlanner:
+  allow_unknown: true # 
+  use_dijkstra: false  # Set to false to use A*, true for Dijkstra
+  use_quadratic: true
+  use_grid_path: true
+  old_navfn_behavior: false
+  lethal_cost: 254
+  neutral_cost: 50
+  cost_factor: 3.0
+  publish_potential: false

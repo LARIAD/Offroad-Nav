@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>barakuda_bringup</name>
+  <version>0.0.0</version>
+  <description>The barakuda_bringup package</description>
+
+  <maintainer email="sebastien.kerbourch@ensta.fr">Sébastien Kerbourc'h</maintainer>
+  <!--   BSD, MIT, Boost Software License, GPLv2, GPLv3, LGPLv2.1, LGPLv3 -->
+  <license>TODO</license>
+  <!-- <url type="repository">http://wiki.ros.org/barakuda_bringup</url> -->
+  <author email="sebastien.kerbourch@ensta.fr">Sébastien Kerbourc'h</author>
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <!-- sensors -->
+  <exec_depend>robot_state_publisher</exec_depend>
+  <exec_depend>zed_wrapper</exec_depend>
+  <exec_depend>ouster_ros</exec_depend>
+  <exec_depend>barakuda_description</exec_depend>
+  <exec_depend>xacro</exec_depend>
+  <exec_depend>ntrip_client</exec_depend>
+  <exec_depend>sbg_driver</exec_depend>
+  <exec_depend>axis_camera</exec_depend>
+
+  <!-- manager -->
+  <exec_depend>rosbridge_server</exec_depend>
+  <exec_depend>video_gstreamer_ros</exec_depend>
+  <exec_depend>waypoint_manager</exec_depend>
+  <exec_depend>barakuda_manager</exec_depend>
+  <exec_depend>barakuda_node</exec_depend>
+  <exec_depend>twist_mux</exec_depend>
+
+  <!-- localisation -->
+  <exec_depend>direct_lidar_inertial_odometry</exec_depend>
+  <exec_depend>robot_localization</exec_depend>
+
+  <!-- navigation -->
+  <exec_depend>elevation_mapping_cupy</exec_depend>
+  <exec_depend>move_base</exec_depend>
+</package>

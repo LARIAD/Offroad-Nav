@@ -1,0 +1,15 @@
+# Blender MTL File: 'uploads_files_2231876_Rock+Pack+Vol.2+packed.blend'
+# Material Count: 1
+
+newmtl moss_rock_13
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.000000 0.000000 0.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Bump D:\\temp_downloads\\textures\\moss rock 13_normal (4096).png
+map_Kd D:\\temp_downloads\\textures\\moss rock 13 (4096).jpg
+map_Ns D:\\temp_downloads\\textures\\moss rock 13_roughness (4096).png

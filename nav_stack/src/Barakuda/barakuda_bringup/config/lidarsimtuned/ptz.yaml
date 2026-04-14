@@ -1,0 +1,14 @@
+hostname: "192.168.0.90"
+username: "root"
+password: "admin"
+use_encrypted_password: true
+width: 1920
+height: 1080
+camera: 1
+frame_id: ptz_camera_link
+wiper: 0
+defog: 0
+ir: 0
+# 0=camera default
+fps: 0
+ptz: $(arg enable_ptz)

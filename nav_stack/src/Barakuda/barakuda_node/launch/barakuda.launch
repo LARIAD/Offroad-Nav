@@ -1,0 +1,34 @@
+<launch>
+   <group ns="/">
+        <!-- LOGITEC CONTROLLER-->
+        <!-- Publish the controller inputs
+        <node name="joy" pkg="joy" type="joy_node" output="screen">
+            <param name="dev" value="/dev/input/js0" />
+        </node> -->
+
+        <!-- BARAKUDA JOY -->
+        <!-- Subscribes to Joy message and publish joy_vel and ptz_vel -->
+        <node name="barakuda_joy" pkg="barakuda_node" type="barakuda_joy.py" output="screen">
+        </node> 
+
+        <!-- BARAKUDA CONTROL -->
+        <!-- Subscribes to Twist message and publish array of RPM for the Barakuda driver -->
+        <node name="barakuda_control" pkg="barakuda_node" type="barakuda_torque_controller.py" output="screen">
+        </node> 
+
+        <!-- BARAKUDA BASE -->
+        <node name="barakuda_driver" pkg="barakuda_node" type="barakuda_driver.py" output="screen" respawn="true">
+            <param name="barakuda_ip" value="192.168.168.51"/>
+            <param name="get_port" value= "8080"/>
+            <param name="send_port" value= "2421"/>
+        </node>
+	
+	<!-- TWIST MULTIPLEXER -->
+	<!-- Assign priorities to twist_messages depending on the source -->        
+	<node pkg="twist_mux" type="twist_mux" name="twist_mux">
+            <rosparam command="load" file="$(find barakuda_node)/config/twist_mux.yaml" />
+            <remap from="cmd_vel_out" to="cmd_vel"/>
+        </node>
+
+    </group>
+</launch>

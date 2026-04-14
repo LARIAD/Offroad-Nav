@@ -1,0 +1,219 @@
+# Settings of the plugins. (The plugins should be stored in script/plugins)
+
+# min_filter fills in minimum value around the invalid cell.
+min_filter:                                   
+  enable: True                                # weather to load this plugin
+  fill_nan: False                             # Fill nans to invalid cells of elevation layer.
+  is_height_layer: True                       # If this is a height layer (such as elevation) or not (such as traversability)
+  layer_name: "min_filter"                    # The layer name.
+  extra_params:                               # This params are passed to the plugin class on initialization.
+    dilation_size: 4                         # The patch size to apply
+    iteration_n: 15                           # The number of iterations
+# Apply smoothing.
+# smooth_filter:
+#   enable: True
+#   fill_nan: False
+#   is_height_layer: True
+#   layer_name: "smooth"
+#   extra_params:
+#     input_layer_name: "min_filter" 
+# # Apply inpainting using opencv
+# inpainting:
+#   enable: True
+#   fill_nan: False
+#   is_height_layer: True
+#   layer_name: "inpaint"
+#   extra_params:
+#     method: "ns"                           # telea or ns
+# # Apply smoothing for inpainted layer
+# erosion:
+#   enable: True
+#   fill_nan: False
+#   is_height_layer: False
+#   layer_name: "erosion"
+#   extra_params:
+#     input_layer_name: "elevation"
+#     dilation_size: 5
+#     iteration_n: 20
+#     reverse: False
+# csf_segmentation: # CSF's params 
+#   enable: False # need to keep plugin manager unchanged
+#   csf_cloth_resolution: 0.5
+#   csf_bSloopSmooth: False 
+#   csf_class_threshold: 0.05
+#   csf_time_step: 0.65
+#   csf_rigidness: 1
+#   csf_interations: 20
+#   lenght_view: 60.
+csf_segmentation_gpu: # CSF's params   
+  enable: False # need to keep plugin manager unchanged  
+  csf_cloth_resolution: 0.15
+  csf_bSloopSmooth: True 
+  csf_class_threshold: 0.05
+  csf_time_step: 0.5
+  csf_rigidness: 1 
+  csf_interations: 100
+  lenght_view: 60. 
+
+csf_inflated:
+  type: "inflation"
+  enable: true
+  fill_nan: false 
+  is_height_layer: false
+  layer_name: "csf_inflated"
+  extra_params:
+    input_layer_name: "csf_gpu"
+
+    # --- Obstacle detection ---
+    obstacle_threshold: 0.3
+
+    # --- Inflation behavior (metric, not pixels) ---
+    inflation_radius_m: 1.     # ~40 cm safety buffer
+    cost_scaling_factor: 0.3    # Lower = wider, smoother inflation
+
+    # --- Cost values ---
+    lethal_cost: 1.0            # Hard obstacle cost
+    inflation_cost: 0.6         # Max cost at obstacle boundary
+
+    # --- Map properties (MUST match your grid map) ---
+    map_resolution: 0.15        # meters per cell
+
+
+# csf_from_pcl1:
+#   type: "csf_from_pcl"
+#   enable: True
+#   fill_nan: False
+#   is_height_layer: False
+#   layer_name: "csf"
+#   extra_params:
+#     safe_all: -0.00
+#     input_base_layer_name: "obli20"
+#     input_csf_layer_name: "obli10"
+csf_from_pcl2:
+  type: "csf_from_pcl"
+  enable: True
+  fill_nan: False
+  is_height_layer: False
+  apply_shift: True
+  layer_name: "csf_gpu"
+  extra_params:
+    safe_all: -0.00
+    input_base_layer_name: "obli20"
+    input_csf_layer_name: "obli30" 
+
+# csf_only1:
+#   type: "csf_only"
+#   enable: True
+#   fill_nan: False
+#   is_height_layer: False
+#   layer_name: "csf_only"
+#   extra_params:
+#     input_layer_name: "obli10"
+csf_only2:
+  type: "csf_only"
+  enable: True
+  fill_nan: False
+  is_height_layer: False
+  layer_name: "csf_only_gpu"
+  extra_params:
+    input_layer_name: "obli30"
+csf_new:
+  enable: True
+  fill_nan: False
+  is_height_layer: False
+  layer_name: "csf_new"
+  extra_params:
+    input_layer_name: "obli20"
+# csf_plugin:
+#   enable: True
+#   fill_nan: False
+#   is_height_layer: False
+#   layer_name: "csf_plug"
+#   extra_params:
+#     input_layer_name: "elevation"
+elevation2:
+  enable: True
+  fill_nan: False
+  is_height_layer: False
+  layer_name: "elevation2"
+  extra_params:
+    input_layer_name: "elevation"
+#     dilation_size: 2
+#     iteration_n: 10
+#     reverse: False
+# removenoise:
+#   enable: True
+#   fill_nan: False
+#   is_height_layer: False
+#   layer_name: "removenoise"
+#   extra_params:
+#     input_layer_name: "elevation"
+#     dilation_size: 2
+#     iteration_n: 10
+#     reverse: False
+
+# example:                                      # Name of your filter
+#   type: "example"                             # Specify the name of your plugin (the name of your file name).
+#   enable: True                                # weather to load this plugin
+#   fill_nan: True                              # Fill nans to invalid cells of elevation layer.
+#   is_height_layer: True                       # If this is a height layer (such as elevation) or not (such as traversability)
+#   layer_name: "example_layer"                 # The layer name.
+#   extra_params:    
+#     input_layer_name: "smooth"                           # This params are passed to the plugin class on initialization.
+#     add_value: 2.0                            # Example param
+
+# sobel:
+#   type: "edge_detection"
+#   enable: True
+#   fill_nan: True
+#   is_height_layer: True
+#   layer_name: "sobel"
+#   extra_params:
+#     input_layer_name: "elevation"
+#     algo: "sobel"
+
+# prewitt:
+#   type: "edge_detection"
+#   enable: True
+#   fill_nan: True
+#   is_height_layer: True
+#   layer_name: "prewitt"
+#   extra_params:
+#     input_layer_name: "elevation"
+#     algo: "prewitt"
+
+# laplace:
+#   type: "edge_detection"
+#   enable: True
+#   fill_nan: True
+#   is_height_layer: True
+#   layer_name: "laplace"
+#   extra_params:
+#     input_layer_name: "csf"
+#     algo: "laplace"
+
+# gaussian_laplace1:
+#   type: "edge_detection"
+#   enable: True
+#   fill_nan: True
+#   is_height_layer: True
+#   layer_name: "gaussian_laplace1"
+#   extra_params:
+#     input_layer_name: "elevation"
+#     algo: "gaussian_laplace"
+#     sigma: 1
+
+# gaussian_laplace3:
+#   type: "edge_detection"
+#   enable: True
+#   fill_nan: True
+#   is_height_layer: True
+#   layer_name: "gaussian_laplace3"
+#   extra_params:
+#     input_layer_name: "elevation"
+#     algo: "gaussian_laplace"
+#     sigma: 3
+
+    
+
+

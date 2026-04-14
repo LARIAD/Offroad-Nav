@@ -1,0 +1,5 @@
+<launch>
+    <node pkg="video_gstreamer_ros" type="video_gstreamer_ros" name="video_gstreamer_ros" output="screen" args="--log-level=INFO">
+        <rosparam command="load" file="$(find video_gstreamer_ros)/config/example.yaml" />
+    </node>
+</launch>

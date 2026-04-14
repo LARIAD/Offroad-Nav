@@ -1,0 +1,67 @@
+# Blender MTL File: 'None'
+# Material Count: 5
+
+newmtl vray_Branches_08_Mat
+Ns 17.857098
+Ka 1.000000 1.000000 1.000000
+Kd 0.500000 0.500000 0.500000
+Ks 0.085300 0.085300 0.085300
+Ke 0.000000 0.000000 0.000000
+Ni 1.520000
+d 1.000000
+illum 2
+map_Bump D:\\temp_downloads\\uploads_files_3456360_2+diffrent+tree+-Kousa+Dogwood+obj\\textures\\Branches_08_Normal.jpg
+map_Kd D:\\temp_downloads\\uploads_files_3456360_2+diffrent+tree+-Kousa+Dogwood+obj\\textures\\Branches_08.jpg
+map_d D:\\temp_downloads\\uploads_files_3456360_2+diffrent+tree+-Kousa+Dogwood+obj\\textures\\Branches_08_Opacity.jpg
+
+newmtl vray_Cap_06_Mat
+Ns 17.857098
+Ka 1.000000 1.000000 1.000000
+Kd 0.500000 0.500000 0.500000
+Ks 0.046100 0.046100 0.046100
+Ke 0.000000 0.000000 0.000000
+Ni 1.520000
+d 1.000000
+illum 2
+map_Bump D:\\temp_downloads\\uploads_files_3456360_2+diffrent+tree+-Kousa+Dogwood+obj\\textures\\Cap_06_Normal.jpg
+map_Kd D:\\temp_downloads\\uploads_files_3456360_2+diffrent+tree+-Kousa+Dogwood+obj\\textures\\Cap_06.jpg
+map_d D:\\temp_downloads\\uploads_files_3456360_2+diffrent+tree+-Kousa+Dogwood+obj\\textures\\Cap_06_Opacity.jpg
+
+newmtl vray_KousaDogwoodBark_Mat
+Ns 17.857098
+Ka 1.000000 1.000000 1.000000
+Kd 0.500000 0.500000 0.500000
+Ks 0.044500 0.044500 0.044500
+Ke 0.000000 0.000000 0.000000
+Ni 1.520000
+d 1.000000
+illum 2
+map_Bump D:\\temp_downloads\\uploads_files_3456360_2+diffrent+tree+-Kousa+Dogwood+obj\\textures\\KousaDogwoodBark_Normal.jpg
+map_Kd D:\\temp_downloads\\uploads_files_3456360_2+diffrent+tree+-Kousa+Dogwood+obj\\textures\\KousaDogwoodBark.jpg
+map_d D:\\temp_downloads\\uploads_files_3456360_2+diffrent+tree+-Kousa+Dogwood+obj\\textures\\KousaDogwoodBark_Opacity.jpg
+
+newmtl vray_KousaDogwoodLeafHD2_Mat
+Ns 12.610897
+Ka 1.000000 1.000000 1.000000
+Kd 0.500000 0.500000 0.500000
+Ks 0.041600 0.041600 0.041600
+Ke 0.000000 0.000000 0.000000
+Ni 1.520000
+d 1.000000
+illum 2
+map_Bump D:\\temp_downloads\\uploads_files_3456360_2+diffrent+tree+-Kousa+Dogwood+obj\\textures\\KousaDogwoodLeafHD2_Normal.jpg
+map_Kd D:\\temp_downloads\\uploads_files_3456360_2+diffrent+tree+-Kousa+Dogwood+obj\\textures\\KousaDogwoodLeafHD2.jpg
+map_d D:\\temp_downloads\\uploads_files_3456360_2+diffrent+tree+-Kousa+Dogwood+obj\\textures\\KousaDogwoodLeafHD2_Opacity.jpg
+
+newmtl vray_KousaDogwoodLeafHD_Mat
+Ns 12.610897
+Ka 1.000000 1.000000 1.000000
+Kd 0.500000 0.500000 0.500000
+Ks 0.058400 0.058400 0.058400
+Ke 0.000000 0.000000 0.000000
+Ni 1.520000
+d 1.000000
+illum 2
+map_Bump D:\\temp_downloads\\uploads_files_3456360_2+diffrent+tree+-Kousa+Dogwood+obj\\textures\\KousaDogwoodLeafHD_Normal.jpg
+map_Kd D:\\temp_downloads\\uploads_files_3456360_2+diffrent+tree+-Kousa+Dogwood+obj\\textures\\KousaDogwoodLeafHD.jpg
+map_d D:\\temp_downloads\\uploads_files_3456360_2+diffrent+tree+-Kousa+Dogwood+obj\\textures\\KousaDogwoodLeafHD_Opacity.jpg

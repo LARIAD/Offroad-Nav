@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- Fixed args -->
+    <arg name="robot_name" default="lidarsimtuned"/>
+    <arg name="robot_model" default="$(find barakuda_description)/urdf/barakuda.urdf.xacro"/>
+    <arg name="robot_model_config" default="$(find barakuda_bringup)/config/$(arg robot_name)/urdf.yaml"/>
+
+    <!-- Choose module to activate -->
+    <arg name="use_manager" default="false"/>
+    <arg name="use_dlio_odom" default="false"/>
+    <arg name="use_dlio_mapping" default="false"/>
+    <arg name="use_localisation" default="false"/>
+    <arg name="use_navigation" default="true"/>
+    <arg name="use_sensors" default="false"/>
+    <arg name="use_ptz" default="false"/>
+    <arg name="use_zed" default="false"/>
+
+    <!-- Navigation -->
+    <arg name="global_planner_params" default="$(find barakuda_bringup)/config/$(arg robot_name)/astar_default.yaml"/>
+    <arg name="local_planner_params" default="$(find barakuda_bringup)/config/$(arg robot_name)/teb_default.yaml"/>
+    <arg name="default_controller_frequency" default="12.0"/>
+    <arg name="move_base_controller_frequency" default="$(arg default_controller_frequency)"/>
+    <arg name="barakuda_controller_frequency" default="$(arg default_controller_frequency)"/>
+
+    <!-- dlio topic settings -->
+    <arg name="dlio_pointcloud_topic" default="/ouster/points"/>
+    <arg name="dlio_imu_topic" default="/ouster/imu"/>
+
+    <!-- zed settings -->
+    <arg name="zed_camera_name" default="zed"/>
+    <arg name="zed_camera_model" default="zed2i"/>
+
+    <!-- Debug args -->
+    <arg name="respawn_delay" default="5.0"/>
+    <arg name="rviz" default="false"/>
+    <arg name="rviz_config" default="$(find barakuda_bringup)/rviz/barakuda.rviz"/>
+    <arg name="joint_state_publisher" default="true"/>
+    <arg name="joint_state_gui" default="false"/>
+
+    <!-- Include all sub-launch files -->
+    <include file="$(find barakuda_bringup)/launch/base.launch.xml">
+        <arg name="robot_name" value="$(arg robot_name)"/>
+        <arg name="robot_model" value="$(arg robot_model)"/>
+
+        <arg name="use_manager" value="$(arg use_manager)"/>
+        <arg name="use_dlio_odom" value="$(arg use_dlio_odom)"/>
+        <arg name="use_dlio_mapping" value="$(arg use_dlio_mapping)"/>
+        <arg name="use_localisation" value="$(arg use_localisation)"/>
+        <arg name="use_navigation" value="$(arg use_navigation)"/>
+        <arg name="use_sensors" value="$(arg use_sensors)"/>
+        <arg name="use_ptz" value="$(arg use_ptz)"/>
+        <arg name="use_zed" value="$(arg use_zed)"/>
+
+        <arg name="global_planner_params" value="$(arg global_planner_params)"/>
+        <arg name="local_planner_params" value="$(arg local_planner_params)"/>
+        <arg name="default_controller_frequency" value="$(arg default_controller_frequency)"/>
+        <arg name="move_base_controller_frequency" value="$(arg move_base_controller_frequency)"/>
+        <arg name="barakuda_controller_frequency" value="$(arg barakuda_controller_frequency)"/>
+
+        <arg name="dlio_pointcloud_topic" value="$(arg dlio_pointcloud_topic)"/>
+        <arg name="dlio_imu_topic" value="$(arg dlio_imu_topic)"/>
+
+        <arg name="zed_camera_name" value="$(arg zed_camera_name)"/>
+        <arg name="zed_camera_model" value="$(arg zed_camera_model)"/>
+
+        <arg name="respawn_delay" value="$(arg respawn_delay)"/>
+        <arg name="rviz" value="$(arg rviz)"/>
+        <arg name="rviz_config" value="$(arg rviz_config)"/>
+        <arg name="joint_state_publisher" value="$(arg joint_state_publisher)"/>
+        <arg name="joint_state_gui" value="$(arg joint_state_gui)"/>
+    </include>
+</launch>

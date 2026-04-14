@@ -1,0 +1,28 @@
+<launch>
+    <arg name="robot_name"/>
+
+    <arg name="move_base_controller_frequency"/>
+    <arg name="global_planner_params"/>
+    <arg name="local_planner_params"/>
+
+    <param name="/use_sim_time" value="true"/>
+
+    <node pkg="tf" type="static_transform_publisher" name="odom_to_map" args="0.0 0.0 0.0 0.0 0 0.0  /map /odom  10"/>
+
+    <node pkg="elevation_mapping_cupy" type="elevation_mapping_node" name="elevation_mapping" output="screen">
+        <rosparam command="load" file="$(find barakuda_bringup)/config/$(arg robot_name)/emc_core_param.yaml"/>
+        <rosparam command="load" file="$(find barakuda_bringup)/config/$(arg robot_name)/emc_setup.yaml"/>
+    </node>
+
+    <node name="move_base_flex" pkg="mbf_gridmap_nav" type="mbf_gridmap_nav" output="screen">
+        <rosparam file="$(find barakuda_bringup)/config/$(arg robot_name)/move_base.yaml" command="load"/>
+        <rosparam file="$(find barakuda_bringup)/config/$(arg robot_name)/costmap_global.yaml" command="load" ns="global_costmap"/>
+        <rosparam file="$(find barakuda_bringup)/config/$(arg robot_name)/costmap_local.yaml" command="load" ns="local_costmap"/>
+
+        <rosparam file="$(arg global_planner_params)" command="load"/>
+        <rosparam file="$(arg local_planner_params)" command="load"/>
+
+        <param name="controller_frequency" value="$(arg move_base_controller_frequency)"/>
+        <remap from="/cmd_vel" to="/cmd_vel"/>
+    </node>
+</launch>

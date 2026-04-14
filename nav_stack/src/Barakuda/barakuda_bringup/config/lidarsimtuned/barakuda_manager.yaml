@@ -1,0 +1,43 @@
+listening_topic: /safety/shark_station_listening
+alt_stop_topic: /safety/shark_station_stop
+exclusion_geopoly_topic: /exclusion_geopoly
+imu_topic: /imu/hdt
+location_topics:
+  - topic: "/imu/nav_sat_fix"
+    type: "sensor_msgs::NavSatFix"
+  - topic: "/sbg/ekf_nav"
+    type: "sbg_driver::SbgEkfNav"
+  - topic: "/odometry/filtered/local"
+    type: "nav_msgs::Odometry"
+  - topic: "/odometry/filtered/global"
+    type: "nav_msgs::Odometry"
+
+mission_topic: /mirador/mission
+joy_topic: /joy
+
+utm_zone: 31
+is_north: true
+
+# Delay between 2 GNSS record in sec
+#gnss_record_delay: 1
+
+UTM_frame: utm
+map_frame: map
+is_NED: false
+
+# up to 4 min record with a record rate at 0.5Hz
+max_record_length: 60
+
+# Min distance between two position record
+m_dist_record_tolerance: 5.0
+
+# Camera 
+camera_orientation_topic: "/viewpro/status/orientation"
+camera_fov : 64
+
+#CoHoMa detection
+mission_context_topic : "mission/mission_context" # Specify the topic of the detected QRC and points of interest list
+red_detect_topic : "mission/red_detect"
+
+# Camera com
+stream_port: ["11.0.0.61:5001"]  #the list of UDP ports used for mirador to receive the RTP/JPEG streams

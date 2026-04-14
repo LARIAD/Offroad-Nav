@@ -1,0 +1,121 @@
+<?xml version="1.0"?>
+<launch>
+    <!--
+    This file is meant to be included after settings the argument for each launch file (corresponding to a given robot)
+    For more details on the argument please check out the README.md
+
+    COMMENT STARTING WITH README_DOC ARE USED TO SIMPLIFY KEEPING THE README UP TO DATE. PLEASE DO NOT REMOVE THEM.
+    -->
+
+    <!--README_DOC | robot_name | string | Define the name of the robot and where the configs should be found (check the Config files section of the README) | None | -->
+    <arg name="robot_name"/>
+    <!--README_DOC | robot_model | string (full path) | The path to the .urdf.xacro to use | $(find barakuda_description)/urdf/barakuda.urdf.xacro | -->
+    <arg name="robot_model" default="$(find barakuda_description)/urdf/barakuda.urdf.xacro"/>
+    <!--README_DOC | robot_model_config | string (full path) | The path to the yaml to use as a config in the xacro | $(find barakuda_bringup)/config/$(arg robot_name)/urdf.yaml | -->
+    <arg name="robot_model_config" default="$(find barakuda_bringup)/config/$(arg robot_name)/urdf.yaml"/>
+
+    <!--README_DOC | use_manager | bool | If the manager module should be included | true | -->
+    <arg name="use_manager" default="true"/>
+    <!--README_DOC | use_dlio_odom | bool | If dlio odom node should be started | true | -->
+    <arg name="use_dlio_odom" default="true"/>
+    <!--README_DOC | use_dlio_mapping | bool | If dlio mapping node should be started | false | -->
+    <arg name="use_dlio_mapping" default="false"/>
+    <!--README_DOC | use_localisation | bool | If localisation module should be started | true | -->
+    <arg name="use_localisation" default="true"/>
+    <!--README_DOC | use_navigation | bool | If navigation module should be started | true | -->
+    <arg name="use_navigation" default="true"/>
+    <!--README_DOC | use_sensors | bool | If sensor module should be started | true | -->
+    <arg name="use_sensors" default="true"/>
+    <!--README_DOC | use_ptz | bool | If ptz node should be started | $(eval arg('robot_name') != 'taurus') | -->
+    <arg name="use_ptz" default="$(eval arg('robot_name') != 'taurus')"/>
+    <!--README_DOC | use_zed | bool | If zed node should be started | true | -->
+    <arg name="use_zed" default="true"/>
+
+    <!--README_DOC | global_planner_params | string (full path) | The path to global planner config file | $(find barakuda_bringup)/config/$(arg robot_name)/astar_default.yaml | -->
+    <arg name="global_planner_params" default="$(find barakuda_bringup)/config/$(arg robot_name)/astar_default.yaml"/>
+    <!--README_DOC | local_planner_params | string (full path) | The path to local planner config file | $(find barakuda_bringup)/config/$(arg robot_name)/teb_default.yaml | -->
+    <arg name="local_planner_params" default="$(find barakuda_bringup)/config/$(arg robot_name)/teb_default.yaml"/>
+    <!--README_DOC | default_controller_frequency | float | The default frequency of the move_base/barakuda_control controller | 12.0 | -->
+    <arg name="default_controller_frequency" default="12.0"/>
+    <!--README_DOC | move_base_controller_frequency | float | The frequency of the move_base controller | $(arg default_controller_frequency) | -->
+    <arg name="move_base_controller_frequency" default="$(arg default_controller_frequency)"/>
+    <!--README_DOC | barakuda_controller_frequency | float | The frequency of the barakuda_control controller | $(arg default_controller_frequency) | -->
+    <arg name="barakuda_controller_frequency" default="$(arg default_controller_frequency)"/>
+
+    <!--README_DOC | dlio_pointcloud_topic | string (topic) | The topic of the pointcloud | /ouster/points | -->
+    <arg name="dlio_pointcloud_topic" default="/ouster/points"/>
+    <!--README_DOC | dlio_imu_topic | string (topic) | The topic of the imu | /ouster/imu | -->
+    <arg name="dlio_imu_topic" default="/ouster/imu"/>
+
+    <!--README_DOC | zed_camera_name | string | The name of the zed camera | zed | -->
+    <arg name="zed_camera_name" default="zed"/>
+    <!--README_DOC | zed_camera_model | string | The model of zed camera | zed2i | -->
+    <arg name="zed_camera_model" default="zed2i"/>
+
+    <!--README_DOC | respawn_delay | float | The delay before a node is restarted | 5.0 | -->
+    <arg name="respawn_delay" default="5.0"/>
+    <!--README_DOC | rviz | bool | If rviz should be started | false | -->
+    <arg name="rviz" default="false"/>
+    <!--README_DOC | rviz | string (full path) | The rviz file to use | false | -->
+    <arg name="rviz_config" default="$(find barakuda_bringup)/rviz/barakuda.rviz"/>
+    <!--README_DOC | joint_state_publisher | bool | If joint_state_publisher node should be started | true | -->
+    <arg name="joint_state_publisher" default="true"/>
+    <!--README_DOC | joint_state_gui | bool | If joint_state_publisher gui should be started | false | -->
+    <arg name="joint_state_gui" default="false"/>
+
+    <!-- Include all sub-launch files -->
+    <!-- Sensors -->
+    <group if="$(arg use_sensors)">
+        <include file="$(find barakuda_bringup)/launch/modules/sensors.launch.xml">
+            <arg name="robot_name" value="$(arg robot_name)"/>
+            <arg name="robot_model" value="$(arg robot_model)"/>
+            <arg name="robot_model_config" value="$(arg robot_model_config)"/>
+
+            <arg name="use_ptz" value="$(arg use_ptz)"/>
+
+            <arg name="respawn_delay" value="$(arg respawn_delay)"/>
+            <arg name="joint_state_publisher" value="$(arg joint_state_publisher)"/>
+            <arg name="joint_state_gui" value="$(arg joint_state_gui)"/>
+
+            <arg name="zed_camera_name" value="$(arg zed_camera_name)"/>
+            <arg name="zed_camera_model" value="$(arg zed_camera_model)"/>
+        </include>
+    </group>
+
+    <!-- Manager -->
+    <group if="$(arg use_manager)">
+        <include file="$(find barakuda_bringup)/launch/modules/manager.launch.xml">
+            <arg name="robot_name" value="$(arg robot_name)"/>
+            <arg name="respawn_delay" value="$(arg respawn_delay)"/>
+            <arg name="barakuda_controller_frequency" value="$(arg barakuda_controller_frequency)"/>
+        </include>
+    </group>
+
+    <!-- Localisation -->
+    <group if="$(arg use_localisation)">
+        <include file="$(find barakuda_bringup)/launch/modules/localisation.launch.xml">
+            <arg name="robot_name" value="$(arg robot_name)"/>
+
+            <arg name="use_dlio_odom" default="$(arg use_dlio_odom)"/>
+            <arg name="use_dlio_mapping" default="$(arg use_dlio_mapping)"/>
+
+            <arg name="dlio_pointcloud_topic" default="$(arg dlio_pointcloud_topic)"/>
+            <arg name="dlio_imu_topic" default="$(arg dlio_imu_topic)"/>
+        </include>
+    </group>
+
+    <!-- Navigation -->
+    <group if="$(arg use_navigation)">
+        <include file="$(find barakuda_bringup)/launch/modules/navigation.launch.xml">
+            <arg name="robot_name" value="$(arg robot_name)"/>
+
+            <arg name="move_base_controller_frequency" value="$(arg move_base_controller_frequency)"/>
+            <arg name="global_planner_params" value="$(arg global_planner_params)"/>
+            <arg name="local_planner_params" value="$(arg local_planner_params)"/>
+        </include>
+    </group>
+
+    <!-- RVIZ -->
+    <node if="$(arg rviz)" name="rviz" pkg="rviz" type="rviz" args="-d $(arg rviz_config)" required="false"/>
+</launch>
+

@@ -1,0 +1,53 @@
+# ==================================================================================================
+# ================= PARAMETERS FOR THE URDF (BE CAREFUL WHEN CHANGING VALUE HERE) ==================
+# ==================================================================================================
+rot_zed: 15.9 # pitch angle of the zed (degree)
+rot_ouster: 20.7 # pitch angle of the ouster (degree)
+
+# ==================================================================================================
+# =============== META PARAMETER (DO NOT MODIFY UNLESS YOU KNOW WHAT YOU ARE DOING) ================
+# ==================================================================================================
+
+use_struct_u2is: True # only one use_struct can be true
+use_struct_legacy_u2is: False # only one use_struct can be true
+use_urdf_imu_tf: False # deactivate the IMU part of the URDF
+add_axis_base_tf: True # add the axis_base tf (see position below)
+
+# ==================================================================================================
+# ============ CALIBRATION PARAMETER (DO NOT MODIFY UNLESS YOU KNOW WHAT YOU ARE DOING) ============
+# ==================================================================================================
+
+# top_plate_link to axis_base
+top_plate_to_axis_base_x: 0.0
+top_plate_to_axis_base_y: 0.0
+top_plate_to_axis_base_z: 0.03
+
+# top_plate_link to imu translation offset
+top_plate_to_imu_off_x: 0.433 # 1.035/2 + 0.045÷2 - _0.107_
+top_plate_to_imu_off_y: 0.0
+top_plate_to_imu_off_z: 0.0095
+
+# imu_link_SBG to left_gnss_link (front one)
+imu_to_left_ant_x: 0.403
+imu_to_left_ant_y: -0.398
+imu_to_left_ant_z: 0
+imu_to_left_ant_roll: -180
+imu_to_left_ant_pitch: 0
+imu_to_left_ant_yaw: 0
+
+# imu_link_SBG to right_gnss_link (back one)
+imu_to_right_ant_x: -1.245
+imu_to_right_ant_y: 0.402
+imu_to_right_ant_z: 0
+imu_to_right_ant_roll: -180
+imu_to_right_ant_pitch: 0
+imu_to_right_ant_yaw: 0
+
+front_struct_height: 0.4
+
+# position of the bot of the lidar fixation form the bottom of the front struct
+lidar_height: 0.2
+
+# base_link to zed translation offset
+beam_to_zed_off_x: 0.0305
+beam_to_zed_off_z: -0.0465

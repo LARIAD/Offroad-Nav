@@ -1,0 +1,37 @@
+streams:
+  ptz:
+    type: "RTSP2RTP"
+    enable_stream_topic: "ptz_enable"
+    gst_pipeline_1: ' latency=0 ! decodebin max-size-time=30000000000 ! nvvidconv
+          ! videorate ! video/x-raw, framerate=20/1 ! jpegenc ! image/jpeg,quality=70,'
+    gst_pipeline_2: ' ! rtpjpegpay !'
+    gst_rtsp_url: "rtsp://root:admin@192.168.0.90:554/axis-media/media.amp"
+    framerate: "20"
+    image_width: "400"
+    image_height: "200"
+    pcc_host: "11.0.0.44"
+    pcc_port: '5000'
+  zed:
+    type: "ROS2RTP"
+    camera_topic: "/zed_node/rgb/image_rect_color"
+    enable_stream_topic: "zed_enable"
+    gst_pipeline_1: "appsrc ! videoconvert ! videoscale ! video/x-raw,"
+    gst_pipeline_2: "/1, format=YUY2 ! videoconvert ! jpegenc ! rtpjpegpay !"
+    framerate: "20"
+    image_width: "400"
+    image_height: "200"
+    pcc_host: "11.0.0.44"
+    pcc_port: "5001"
+  ptz2ros:
+    type: "RTSP2ROS"
+    camera_topic: "ptz_compressed"
+    camera_info_topic: "ptz_compressed/info"
+    frame_id: "ptz"
+    framerate: 30
+    gst_rtsp_url: "rtsp://root:admin@192.168.0.90:554/axis-media/media.amp"
+    gst_pipeline_1: " latency=0 ! decodebin max-size-time=30000000000 ! nvvidconv ! video/x-raw,"
+    gst_pipeline_2: ",format=BGRx ! videoconvert ! video/x-raw,format=BGR ! videoconvert ! videoscale ! video/x-raw,"
+    image_width: "1920"
+    image_height: "1080"
+    out_width: "1920"
+    out_height: "1080"

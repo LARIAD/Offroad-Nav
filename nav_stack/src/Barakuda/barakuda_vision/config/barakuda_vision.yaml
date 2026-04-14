@@ -1,0 +1,24 @@
+camera_topic: "/zed2i/zed_node/rgb/image_rect_color"
+camera_info_topic : "/zed2i/zed_node/rgb/camera_info"
+gridmap_layer_topic: "/elevation_mapping/elevation_map_raw"
+imu_topic: "/imu/data"
+
+gst_pipeline_1: "appsrc ! videoconvert ! videoscale ! video/x-raw," #width=640, height=360
+gst_pipeline_2: ", framerate=30/1, format=YUY2 ! videoconvert ! jpegenc ! rtpjpegpay !" #udpsink host=127.0.0.1 port=5000
+image_width: "640"
+image_height: "360"
+pcc_host: "11.0.0.43"
+pcc_port: "5000"
+
+filter_transparency: "150"
+erosion_size : "4"
+
+hight_info_frame: "odom"
+robot_frame: "base_link"
+camera_frame: "zed2i_left_camera_frame"
+optical_frame: "zed2i_left_camera_optical_frame"
+# zed_calib
+#optical_frame: "zed_calib"
+
+debug: true
+low_ressources: true

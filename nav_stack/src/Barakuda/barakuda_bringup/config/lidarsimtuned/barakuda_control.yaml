@@ -1,0 +1,15 @@
+# BE AWARE THAT barakuda_controller_frequency WILL BE OVERWRITTEN
+# Please change its value in the associated robot launch (e.g. olivier.launch)
+max_acc: 3000.0
+max_rpm: 5000.0
+rpm_D_gain: 0.05
+rpm_I_gain: 1.1
+rpm_P_gain: 0.5
+vel_lin_D_gain: 0.008
+vel_lin_I_gain: 0.03
+vel_lin_P_gain: 0.0
+vel_rot_D_gain: 0.0008
+vel_rot_I_gain: 3.0
+vel_rot_P_gain: 1.0
+vel_rot_W: 1
+vel_rot_alpha: 0.15

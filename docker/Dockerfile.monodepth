@@ -1,0 +1,105 @@
+# inspired by https://github.com/ojh6404/depth_anything_ros
+
+FROM nvcr.io/nvidia/tensorrt:23.01-py3
+ENV DEBIAN_FRONTEND=noninteractive
+
+# install essential packages
+RUN apt update && apt install -q -y --no-install-recommends \
+    dirmngr \
+    gnupg2 \
+    curl \
+    wget \
+    build-essential \
+    git \
+    tmux \
+    lsb-release \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install ROS 
+RUN apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
+RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu focal main" > /etc/apt/sources.list.d/ros-latest.list'
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    ros-noetic-desktop-full
+
+# install bootstrap tools
+RUN apt-get update && apt-get install --no-install-recommends -y \
+    python3-rosdep \
+    python3-rosinstall \
+    python3-osrf-pycommon \
+    python3-catkin-tools \
+    python3-wstool \
+    python3-vcstools \
+    python-is-python3 \
+    python3-pip \
+    && rm -rf /var/lib/apt/lists/*
+
+# install ros packages
+RUN apt update && apt install -y --no-install-recommends \
+    ros-noetic-image-transport-plugins \
+    ros-noetic-jsk-tools \
+    ros-noetic-jsk-common \
+    ros-noetic-jsk-topic-tools \
+    && rm -rf /var/lib/apt/lists/*
+
+# install point cloud library if needed
+RUN apt-get update && apt-get install -y ros-noetic-jsk-pcl-ros ros-noetic-jsk-pcl-ros-utils &&\
+    rm -rf /var/lib/apt/lists/*
+
+# Installing catkin package
+RUN pip install gdown
+RUN /opt/tensorrt/install_opensource.sh
+ENV TENSORRT_DIR=/workspace/tensorrt
+ENV PATH=$TENSORRT_DIR/bin:$PATH
+
+RUN python3 -m pip install --upgrade pip
+
+RUN pip install --ignore-installed PyYAML
+
+# Install requirements
+RUN pip install \
+    pycuda \
+    cuda-python \
+    tensorrt \
+    onnxruntime-gpu \
+    torch \
+    torchvision \
+    opencv-python \
+    open3d \
+    gdown \
+    rosnumpy
+
+# Dependencies for VINSMono
+RUN apt update && apt install -y \
+    libgoogle-glog-dev \
+    libgflags-dev \
+    libatlas-base-dev \
+    libeigen3-dev \
+    libsuitesparse-dev
+WORKDIR /workspace
+RUN wget http://ceres-solver.org/ceres-solver-1.14.0.tar.gz \
+    && tar zxf ceres-solver-1.14.0.tar.gz \
+    && cd ceres-solver-1.14.0 \
+    && mkdir build \
+    && cd build \
+    && cmake .. \
+    && make -j4 \
+    && make install
+
+# Package for depth anything - using Hugging Face library
+RUN pip install transformers
+
+# Depth Anything V2 (standalone library for non-TRT inference)
+RUN git clone https://github.com/DepthAnything/Depth-Anything-V2.git /workspace/Depth-Anything-V2
+ENV PYTHONPATH="/workspace/Depth-Anything-V2"
+RUN mkdir -p /workspace/Depth-Anything-V2/checkpoints && \
+    wget -O /workspace/Depth-Anything-V2/checkpoints/depth_anything_v2_vits.pth \
+    https://huggingface.co/depth-anything/Depth-Anything-V2-Small/resolve/main/depth_anything_v2_vits.pth
+
+#COPY requirements.txt /workspace/requirements.txt
+#RUN pip install -r requirements.txt
+
+RUN echo "source /opt/ros/noetic/setup.bash" >> /root/.bashrc
+
+# Default entrypoint
+ENTRYPOINT ["/bin/bash", "-lc"]

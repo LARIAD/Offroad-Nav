@@ -1,0 +1,67 @@
+###########################################################
+#                                                         #
+# Copyright (c)                                           #
+#                                                         #
+# The Verifiable & Control-Theoretic Robotics (VECTR) Lab #
+# University of California, Los Angeles                   #
+#                                                         #
+# Authors: Kenny J. Chen, Ryan Nemiroff, Brett T. Lopez   #
+# Contact: {kennyjchen, ryguyn, btlopez}@ucla.edu         #
+#                                                         #
+###########################################################
+
+dlio:
+
+  version: 1.1.1
+
+  verbose: false
+  adaptive: true
+
+  pointcloud:
+    deskew: false
+    voxelize: true
+
+  imu:
+    change_for_up: true
+    calibration: true
+    intrinsics:
+      accel:
+        bias: [ 0.0, 0.0, 0.0 ]
+        sm:   [ 0.,  1.,  0.,
+                1.,  0.,  0.,
+                0.,  0.,  -1. ]
+      gyro:
+        bias: [ 0.0, 0.0, 0.0 ]
+
+  extrinsics:
+    translation: [ 0.670, -0.000, -0.840 ]
+      
+    baselink2imu:
+      t: [ -0.002, -0.010, 0.008 ]
+      R: [ 1.,  0.,  0.,
+           0.,  1.,  0.,
+           0.,  0.,  1. ]
+      # [ 0.4093084,  0.8776632,  0.2493471,
+      #     -0.4785632, -0.0261636,  0.8776632,
+      #      0.7768165, -0.4785632,  0.4093084 ] 
+      # [ -0.22193285, -0.00001016,  0.97506195,
+      #      -0.0000904,   1.   ,      -0.00001016,
+      #      -0.97506195, -0.0000904,  -0.22193285]
+    baselink2lidar:
+      t: [ 0.0, 0.0, 0.0 ]
+      R: [ 1.,  0.,  0.,
+           0.,  1.,  0.,
+           0.,  0.,  1. ]
+      # [ 1.018, 0.000, 0.342 ]
+      # [  0.4093084,  0.8776632,  0.2493471,
+      #     -0.4785632, -0.0261636,  0.8776632,
+      #     0.7768165, -0.4785632,  0.4093084 ]
+      # [ -0.22193285, -0.00001016,  0.97506195,
+      #       -0.0000904,   1.      ,   -0.00001016,
+      #       -0.97506195, -0.0000904 , -0.22193285 ]
+  publish:
+    keyframe: false
+    tf: false
+    path: false
+    size_print: false
+

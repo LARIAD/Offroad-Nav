@@ -1,0 +1,4 @@
+distance_tolerance: 1.0
+
+path_frame_id: "map"
+base_frame_id: "base_link"

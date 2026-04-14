@@ -1,0 +1,29 @@
+# This is the ip of the host where the code runs
+#   - it needs to be in the same subnetwork as the barakuda (192.168.168.*)
+#   - it needs not to conflict with other existing ips
+host_ip: "192.168.168.102"
+# The ip of the barakuda robot. At the time of writing it is always 192.168.168.51.
+robot_ip: "192.168.168.51"
+# The port on which linear/angular commands are sent. At the time of writing it is always 2422.
+cmd_port: 2422
+# The port on which per-wheel commands are sent. At the time of writing it is always 2421.
+wheel_port: 2421
+# The port on which the binary telemetry client can register/unregister. At the time of writing it is always 8080.
+telemetry_api_port: 8080
+# The port on which the telemetry data is received. Can be customized (but should not conflict with previous ports)
+#    and seems required to be above 10 000
+telemetry_port: 10000
+# Define the units of the per-wheel message (either motor_rpm, wheel_rad_s, wheel_linear_velocity).
+#   See shark robotics documentation
+command_type: "motor_rpm"
+# The frame used in the imu message
+imu_frame: "base_link"
+
+cmd_vel_sub_topic: "/cmd_vel"
+cmd_motors_sub_topic: "/barakuda/cmd_motors"
+stop_service: "/barakuda/stop"
+status_topic: "/barakuda/status"
+imu_topic: "/barakuda/imu"
+motor_rpm_topic: "/barakuda/motor_rpm"
+motor_torque_topic: "/barakuda/motor_torque"
+motor_current_topic: "/barakuda/motor_current"

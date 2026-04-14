@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<package format="2">
+    <name>mbf_gridmap_costmap_wrapper</name>
+    <version>0.0.0</version>
+    <description>The mbf_gridmap_core package</description>
+
+    <maintainer email="sebastien.kerbourch@ensta.fr">Seb-sti1</maintainer>
+
+    <license>BSD-3</license>
+    <author email="sebastien.kerbourch@ensta.fr">Seb-sti1</author>
+
+    <buildtool_depend>catkin</buildtool_depend>
+
+    <build_depend>mbf_gridmap_core</build_depend>
+    <build_depend>roscpp</build_depend>
+    <build_depend>tf2_ros</build_depend>
+    <build_depend>costmap_2d</build_depend>
+
+    <build_export_depend>mbf_gridmap_core</build_export_depend>
+    <build_export_depend>roscpp</build_export_depend>
+    <build_export_depend>tf2_ros</build_export_depend>
+    <build_export_depend>costmap_2d</build_export_depend>
+
+    <depend>dynamic_reconfigure</depend>
+    <depend>mbf_costmap_nav</depend>
+
+    <exec_depend>mbf_gridmap_core</exec_depend>
+    <exec_depend>roscpp</exec_depend>
+    <exec_depend>tf2_ros</exec_depend>
+    <exec_depend>costmap_2d</exec_depend>
+
+    <export>
+        <mbf_gridmap_core plugin="${prefix}/wrapper_global_planner.xml"/>
+        <mbf_gridmap_core plugin="${prefix}/wrapper_local_planner.xml"/>
+        <costmap_2d plugin="${prefix}/mb_gridmap_layer.xml"/>
+    </export>
+</package>

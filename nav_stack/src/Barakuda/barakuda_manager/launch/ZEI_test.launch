@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<launch>
+
+    <node pkg="tf" type="static_transform_publisher" name="UTM_to_map_broadcaster" args="442513 5395646 0 0 0 0 1 UTM map 100"/> 
+    
+    <!-- BARAKUDA STATE MANAGER-->
+    <node pkg="barakuda_manager" type="barakuda_mission_loader.py" name="barakuda_mission_loader" output="screen"  respawn="true"></node>
+
+    <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch"/>
+</launch>

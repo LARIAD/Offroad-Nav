@@ -1,0 +1,27 @@
+image_topic: /cam2/rgb
+cam_info_topic: /cam2/camera_info
+
+normalized_disp_topic: /depth_estimation/cam2/disp_map
+
+model: DepthAnythingTRT
+engine_path: /workspace/my_catkin_ws/src/Depth-Anything-V2/depth_anything_v2_vits_364_644_fp16.trt
+# model: Metric3DONNX
+# engine_path: /workspace/my_catkin_ws/src/Metric3D/metric3d_vit_small_364_644.onnx
+
+# ref_type: VINS-Mono
+# ref_topic: /pointcloud_transformer/output_pcl2
+
+ref_type: stereo
+ref_topic: /cam2/disp
+
+edge_thickness: 10
+edge_detection_method: canny # canny or sobel
+publish_edges: True
+
+use_offset: true
+smoothing_factor: 0.8
+max_depth_rescaling: 20.
+
+eval_name: stereo
+eval_topic: /zed2i/zed_node/depth/depth_registered_new
+max_depth_eval: 20.

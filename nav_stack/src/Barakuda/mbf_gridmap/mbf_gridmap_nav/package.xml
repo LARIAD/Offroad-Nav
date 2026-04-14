@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<package format="2">
+    <name>mbf_gridmap_nav</name>
+    <version>0.0.0</version>
+    <description>The mbf_gridmap_nav package</description>
+
+    <maintainer email="sebastien.kerbourch@ensta.fr">Seb-sti1</maintainer>
+
+    <license>BSD-3</license>
+    <author email="sebastien.kerbourch@ensta.fr">Seb-sti1</author>
+
+    <buildtool_depend>catkin</buildtool_depend>
+
+    <build_depend>tf</build_depend>
+    <build_depend>roscpp</build_depend>
+    <build_depend>actionlib</build_depend>
+    <build_depend>actionlib_msgs</build_depend>
+    <build_depend>dynamic_reconfigure</build_depend>
+    <build_depend>std_msgs</build_depend>
+    <build_depend>std_srvs</build_depend>
+    <build_depend>nav_msgs</build_depend>
+    <build_depend>geometry_msgs</build_depend>
+    <build_depend>mbf_abstract_core</build_depend>
+    <build_depend>mbf_msgs</build_depend>
+    <build_depend>mbf_utility</build_depend>
+    <build_depend>xmlrpcpp</build_depend>
+    <build_depend>mbf_abstract_nav</build_depend>
+    <build_depend>mbf_gridmap_core</build_depend>
+    <build_depend>grid_map_core</build_depend>
+    <build_depend>grid_map_msgs</build_depend>
+    <build_depend>grid_map_ros</build_depend>
+    <build_depend>pluginlib</build_depend>
+
+    <exec_depend>tf</exec_depend>
+    <exec_depend>roscpp</exec_depend>
+    <exec_depend>actionlib</exec_depend>
+    <exec_depend>actionlib_msgs</exec_depend>
+    <exec_depend>dynamic_reconfigure</exec_depend>
+    <exec_depend>std_msgs</exec_depend>
+    <exec_depend>std_srvs</exec_depend>
+    <exec_depend>nav_msgs</exec_depend>
+    <exec_depend>geometry_msgs</exec_depend>
+    <exec_depend>mbf_abstract_nav</exec_depend>
+    <exec_depend>mbf_abstract_core</exec_depend>
+    <exec_depend>mbf_msgs</exec_depend>
+    <exec_depend>mbf_utility</exec_depend>
+    <exec_depend>xmlrpcpp</exec_depend>
+    <exec_depend>mbf_gridmap_core</exec_depend>
+    <exec_depend>grid_map_core</exec_depend>
+    <exec_depend>grid_map_msgs</exec_depend>
+    <exec_depend>grid_map_ros</exec_depend>
+    <exec_depend>pluginlib</exec_depend>
+</package>

@@ -1,0 +1,59 @@
+{
+    "version": "1.0",
+    "file_records": [
+        {
+            "source_url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Vegetation/Trees/Gray_Birch.usd",
+            "source_hash": "883c619bde88f2e27209fc27757e727dc635df4f",
+            "target_url": "./Gray_Birch.usd",
+            "target_hash": "7f0895522cb5555f597f365d3756b8bea9fa8b5b"
+        },
+        {
+            "source_url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Vegetation/Trees/materials/textures/alter49_tree4_basecolor.png",
+            "source_hash": "e6fdf82d4efec4b4c9d137919b9c8fda0f35d489",
+            "target_url": "./materials/textures/alter49_tree4_basecolor.png",
+            "target_hash": "19ed68be8d43bc018a8b25a0ab0fc5578b8195bb"
+        },
+        {
+            "source_url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Vegetation/Trees/materials/textures/alter49_tree4_normal.png",
+            "source_hash": "5ad73fc76e7563fa041962fddb4312d41bf189b8",
+            "target_url": "./materials/textures/alter49_tree4_normal.png",
+            "target_hash": "23f8e4d970d20fee2551d46d02726f5b0945fb3e"
+        },
+        {
+            "source_url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Vegetation/Trees/materials/textures/alter49_tree4_roughness.png",
+            "source_hash": "cd324df1926bb910456195f5cd5e0589f9618839",
+            "target_url": "./materials/textures/alter49_tree4_roughness.png",
+            "target_hash": "2a0227ecd6324612fb2aa2e03072c7c1a03561a1"
+        },
+        {
+            "source_url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Vegetation/Trees/materials/textures/hollyprivet_basecolor.png",
+            "source_hash": "0390397ea0a983083466db02737cb90f351daf7e",
+            "target_url": "./materials/textures/hollyprivet_basecolor.png",
+            "target_hash": "8a445d4a5d075c12e38667e3df3f54127af751e5"
+        },
+        {
+            "source_url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Vegetation/Trees/materials/textures/hollyprivet_normal.png",
+            "source_hash": "356242845bd1a4bdba4027df4bbecf0e711f331d",
+            "target_url": "./materials/textures/hollyprivet_normal.png",
+            "target_hash": "3beb06f1fcf3a039fc7289c29654291fc3f4b9ae"
+        },
+        {
+            "source_url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Vegetation/Trees/materials/textures/hollyprivet_roughness.png",
+            "source_hash": "805085050003a53c5466a1dcb5d32eb257f6e3d5",
+            "target_url": "./materials/textures/hollyprivet_roughness.png",
+            "target_hash": "17ba9b8bec77ad628ea4ab4fa48012480f2e5018"
+        },
+        {
+            "source_url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Vegetation/Trees/materials/Gray_Birch_Bark_Mat.mdl",
+            "source_hash": "926266244fb4a478d614903ce500a69f4bd1ac5d",
+            "target_url": "./materials/Gray_Birch_Bark_Mat.mdl",
+            "target_hash": "612e9acc8175c176105729ccb33b528b38107095"
+        },
+        {
+            "source_url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Vegetation/Trees/materials/Gray_Birch_Leaves_Mat.mdl",
+            "source_hash": "92c9efe283184fcf88da7f3aff24fd1f81f06feb",
+            "target_url": "./materials/Gray_Birch_Leaves_Mat.mdl",
+            "target_hash": "1a771dee18e92a514d043d08aca6362b6c14db6f"
+        }
+    ]
+}

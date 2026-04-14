@@ -1,0 +1,59 @@
+{
+    "version": "1.0",
+    "file_records": [
+        {
+            "source_url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Vegetation/Shrub/Holly.usd",
+            "source_hash": "ff79da0097fe4cb13450f5df1d42e9ce3740d066",
+            "target_url": "./Holly.usd",
+            "target_hash": "f8a223693de8897462fd70cfd7d6124fe526bab1"
+        },
+        {
+            "source_url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Vegetation/Trees/materials/bark3.mdl",
+            "source_hash": "140c1298a745f71ec5e272fc68322f18c11ff573",
+            "target_url": "./Trees/materials/bark3.mdl",
+            "target_hash": "acd3684dec85e30993ca7d1c3d744ed39249fae3"
+        },
+        {
+            "source_url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Vegetation/Shrub/materials/HollyPrivet_Mat.mdl",
+            "source_hash": "5fb748e2a3e52102b2f66ee199adde9e3ed7c93d",
+            "target_url": "./materials/HollyPrivet_Mat.mdl",
+            "target_hash": "64ba1cf98b4b73e411e314998372cef856824c8d"
+        },
+        {
+            "source_url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Vegetation/Trees/materials/textures/bark3_basecolor.png",
+            "source_hash": "abc578808bb07849cb7b5f0408d12b3c06e272c2",
+            "target_url": "./Trees/materials/textures/bark3_basecolor.png",
+            "target_hash": "c4887881c29012170640e118853ee9b0f308fd42"
+        },
+        {
+            "source_url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Vegetation/Trees/materials/textures/bark3_roughness.png",
+            "source_hash": "a3910af32db8a10b66aa9f24a6b4dd4a33304ced",
+            "target_url": "./Trees/materials/textures/bark3_roughness.png",
+            "target_hash": "dcee2dda3b28e5a222f3408f28ec4e9ddf3a1b94"
+        },
+        {
+            "source_url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Vegetation/Trees/materials/textures/bark3_normal.png",
+            "source_hash": "6959a2502d92a9cc2075a3e3badc660b3b4e0f1f",
+            "target_url": "./Trees/materials/textures/bark3_normal.png",
+            "target_hash": "b59f26c85d4a59731bcfa73fef34126ceab2f8cb"
+        },
+        {
+            "source_url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Vegetation/Shrub/materials/textures/hollyprivet_basecolor.png",
+            "source_hash": "b9f4f88ec45aab39fd4f1f6489674e199a011f3b",
+            "target_url": "./materials/textures/hollyprivet_basecolor.png",
+            "target_hash": "0bbdf84904e76b149281c6879cd5d2ff0960fdb6"
+        },
+        {
+            "source_url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Vegetation/Shrub/materials/textures/hollyprivet_roughness.png",
+            "source_hash": "b4bfaac6b9d0a8261259d25e9330162a6647ae6d",
+            "target_url": "./materials/textures/hollyprivet_roughness.png",
+            "target_hash": "4396f4fffc2c36aa83f9f4d6c1000c93281e28d4"
+        },
+        {
+            "source_url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Vegetation/Shrub/materials/textures/hollyprivet_normal.png",
+            "source_hash": "6f1ea620ec2f6fc1647ae9391e5301c52ce46277",
+            "target_url": "./materials/textures/hollyprivet_normal.png",
+            "target_hash": "53103923785e93fce14f609a0b49ef23a11c114a"
+        }
+    ]
+}

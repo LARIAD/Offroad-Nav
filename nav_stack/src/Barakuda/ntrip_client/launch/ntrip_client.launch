@@ -1,0 +1,30 @@
+<launch>
+
+    <!-- Définition des paramètres -->
+    <arg name="server" value="caster.centipede.fr" />
+    <arg name="port" value="2101" />
+    <!-- Stations aux alentours de Palaiseau: EVCC CDFX LNE1 -->
+    <!-- Stations aux alentours de Bourges: FLO18 GRBS BK18 -->
+    <arg name="mountpoint" value="CDFX" />
+    <arg name="username" value="centipede" />
+    <arg name="password" value="centipede" />
+    <arg name="topic" value="/ntrip_client/rtcm" />
+    
+    <arg name="utm_zone" value="31" />
+    <arg name="is_south" value="False" />
+
+    <!-- Lancer le nœud ntrip_client -->
+    <node name="ntrip_client_node" pkg="ntrip_client" type="ntrip_client.py" output="screen">
+
+        <!-- Associer les paramètres ROS au nœud -->
+        <param name="server" value="$(arg server)" />
+        <param name="port" value="$(arg port)" />
+        <param name="mountpoint" value="$(arg mountpoint)" />
+        <param name="username" value="$(arg username)" />
+        <param name="password" value="$(arg password)" />
+        <param name="topic" value="$(arg topic)" />
+        <param name="utm_zone" value="$(arg utm_zone)" />
+        <param name="is_south" value="$(arg is_south)" />
+
+    </node>
+</launch>

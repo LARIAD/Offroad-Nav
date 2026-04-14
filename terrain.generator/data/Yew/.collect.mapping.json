@@ -1,0 +1,47 @@
+{
+    "version": "1.0",
+    "file_records": [
+        {
+            "source_url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Vegetation/Shrub/Yew.usd",
+            "source_hash": "b527fb45efada72dccff1058b940e678a04a6a30",
+            "target_url": "./Yew.usd",
+            "target_hash": "5bea5c8855f0360fd564d5cf038f6c8af917bc76"
+        },
+        {
+            "source_url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Vegetation/Trees/materials/Pine_needles.mdl",
+            "source_hash": "722314f0f53a88997d26c2c8ea7b15f76c1551e1",
+            "target_url": "./Trees/materials/Pine_needles.mdl",
+            "target_hash": "ed04492dd6d2235e8256ce0b6785d32c93d42254"
+        },
+        {
+            "source_url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Vegetation/Trees/materials/TreeBark_10.mdl",
+            "source_hash": "89676928f9edb5ba701a860121b32e1ccf5afb64",
+            "target_url": "./Trees/materials/TreeBark_10.mdl",
+            "target_hash": "70904a4e8acdb0576a382eb050b5b5dfde56420a"
+        },
+        {
+            "source_url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Vegetation/Trees/materials/textures/pine_needles.png",
+            "source_hash": "098915bb97182eb38861aec269c6c06154c795c5",
+            "target_url": "./Trees/materials/textures/pine_needles.png",
+            "target_hash": "058e98269d675d7f24ae423b3c039eeb51b0f83c"
+        },
+        {
+            "source_url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Vegetation/Trees/materials/textures/alter49_tree10_basecolor.png",
+            "source_hash": "efcfdc9db8ef271bbacee681f94b2388b38c1271",
+            "target_url": "./Trees/materials/textures/alter49_tree10_basecolor.png",
+            "target_hash": "d345db520be1fd03b2e9b74622fbc48c91d61e55"
+        },
+        {
+            "source_url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Vegetation/Trees/materials/textures/alter49_tree10_roughness.png",
+            "source_hash": "33b2723446dc3f19c2bd26b217e08c3400abcbcf",
+            "target_url": "./Trees/materials/textures/alter49_tree10_roughness.png",
+            "target_hash": "055cdd47cd421939b40204df458276007d708778"
+        },
+        {
+            "source_url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Vegetation/Trees/materials/textures/alter49_tree10_normal.png",
+            "source_hash": "1a26b73ce18428bb203f84ad40f139a103daa362",
+            "target_url": "./Trees/materials/textures/alter49_tree10_normal.png",
+            "target_hash": "f86a0d65c41091dc75a9e15a59fa99391406a5e2"
+        }
+    ]
+}

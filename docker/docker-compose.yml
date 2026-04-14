@@ -1,0 +1,57 @@
+services:
+  nav_stack:
+    container_name: nav_stack_container
+    image: nav_stack:latest
+    entrypoint: bash
+    network_mode: host
+    environment:
+      - ACCEPT_EULA=Y
+      - PRIVACY_CONSENT=Y
+      - DISPLAY=${DISPLAY}
+      - NVIDIA_VISIBLE_DEVICES=all
+    volumes:
+      # X11 forwarding
+      - ${HOME}/.Xauthority:/root/.Xauthority:rw
+      # Isaac Sim caches
+      - ${HOME}/docker/isaac-sim/cache/kit:/isaac-sim/kit/cache:rw
+      - ${HOME}/docker/isaac-sim/cache/ov:/root/.cache/ov:rw
+      - ${HOME}/docker/isaac-sim/cache/pip:/root/.cache/pip:rw
+      - ${HOME}/docker/isaac-sim/cache/glcache:/root/.cache/nvidia/GLCache:rw
+      - ${HOME}/docker/isaac-sim/cache/computecache:/root/.nv/ComputeCache:rw
+      - ${HOME}/docker/isaac-sim/logs:/root/.nvidia-omniverse/logs:rw
+      - ${HOME}/docker/isaac-sim/data:/root/.local/share/ov/data:rw
+      - ${HOME}/docker/isaac-sim/documents:/root/Documents:rw
+      - ../:/workspace/Offroad-Nav
+    command: >
+      /workspace/Offroad-Nav/scripts/launch_nav.sh --stage /workspace/Offroad-Nav/assets/easy.usd --sensor lidar --config monovins --goal '{ header: { seq: 0, stamp: {secs: 0, nsecs: 0}, frame_id: "" }, goal_id: { stamp: {secs: 0, nsecs: 0}, id: "" }, goal: { target_pose: { header: { seq: 0, stamp: {secs: 0, nsecs: 0}, frame_id: "map" }, pose: { position: {x: 20.48, y: 13.22, z: 0.0}, orientation: {x: 0.0, y: 0.0, z: 0.0, w: 1.0} } }, controller: "TebLocalPlannerROS", planner: "GlobalPlanner", recovery_behaviors: [""] } }' --rviz
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [ gpu ]
+
+  mono_depth:
+    container_name: mono_depth_container
+    image: mono_depth:latest
+    entrypoint: bash
+    network_mode: host
+    profiles:
+      - on-demand
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+    volumes:
+      - ..:/workspace/Offroad-Nav
+    command: >
+      -c "cd /workspace/Offroad-Nav/mono_depth &&
+      source devel/setup.bash &&
+      rosparam set /use_sim_time true &&
+      roslaunch depth_estimation nav_depth_estimation.launch"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [ gpu ]
