@@ -31,7 +31,7 @@ GOAL=""             # optional nav goal (YAML string)
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_DIR="$(dirname "$SCRIPT_DIR")"
 
-ISAAC_DIR="/workspace/off-road-navigation-stack/isaac"
+ISAAC_DIR="/workspace/Offroad-Nav/isaac"
 ISAAC_PYTHON="${ISAAC_DIR}/python.sh"
 ISAAC_SIM_SCRIPT="${SCRIPT_DIR}/run_isaacenv.py"
 NAV_WS="${REPO_DIR}/nav_stack"
@@ -196,7 +196,7 @@ ISAAC_PID=$!
 
 # Wait for Isaac Sim to start publishing
 log "Waiting for Isaac Sim to initialize..."
-MAX_WAIT=300
+MAX_WAIT=900
 ELAPSED=0
 while [[ $ELAPSED -lt $MAX_WAIT ]]; do
     if rostopic list 2>/dev/null | grep -q "/clock"; then
